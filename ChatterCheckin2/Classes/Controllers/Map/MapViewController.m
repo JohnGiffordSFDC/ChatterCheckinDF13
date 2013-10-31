@@ -121,63 +121,10 @@
     }];
 }
 
-- (void)getUsersCustom
-{
-	SFRestRequest* request = [[SFRestAPI sharedInstance] requestForResources];
-    [request setEndpoint:@"/services/"];
-    
-    NSString *pathString = [NSString stringWithFormat:@"/services/apexrest/jgifford/UserLocations"];
-    
-    request.path = pathString;
-    
-    _startTime = [NSDate date];
-
-    [[SFRestAPI sharedInstance] send:request delegate:self];
-}
-
-- (void)getUsersNative
-{
-    SFRestRequest *request = [[SFRestAPI sharedInstance] requestForQuery:@"select id, firstname, lastname, jgifford__latitude__c, jgifford__longitude__c from user"];
-    
-    _startTime = [NSDate date];
-
-    [[SFRestAPI sharedInstance] send:request delegate:self];
-}
-
 #pragma mark - SFRestAPIDelegate
 
 - (void)request:(SFRestRequest *)request didLoadResponse:(id)jsonResponse {
-    _endTime = [NSDate date];
     
-    double milliseconds = (double)[_endTime timeIntervalSinceDate:_startTime];
-    NSLog(@"Milliseconds: %f",milliseconds);
-    NSString *time = [NSString stringWithFormat:@"%f milliseconds",milliseconds];
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Response Time" message: [NSString stringWithFormat:@"%f milliseconds",milliseconds] delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
-    
-    [self writeToLogFile:time];
-}
-
--(void) writeToLogFile:(NSString*)content{
-    content = [NSString stringWithFormat:@"%@\n",content];
-    
-    //get the documents directory:
-    NSString *documentsDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-    NSString *fileName = [NSString stringWithFormat:@"%@/results.txt", documentsDirectory];
-    
-    NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:fileName];
-    if (fileHandle){
-        [fileHandle seekToEndOfFile];
-        [fileHandle writeData:[content dataUsingEncoding:NSUTF8StringEncoding]];
-        [fileHandle closeFile];
-    }
-    else{
-        [content writeToFile:fileName
-                  atomically:NO
-                    encoding:NSStringEncodingConversionAllowLossy
-                       error:nil];
-    }
 }
 
 - (void)request:(SFRestRequest*)request didFailLoadWithError:(NSError*)error {
@@ -286,53 +233,8 @@
     return;
 }
 
-- (IBAction)locateFriends:(id)sender {
-    [self setAnnotations];
-
-    UIBarButtonItem *button = (UIBarButtonItem *)sender;
-    if ([[button title] isEqualToString:@"Find Coworkers"]) {
-        [self getUsersNative];
-    } else {
-        [self getUsersCustom];
-    }
-}
-
 - (void)setAnnotations {
-    id userLocation = [_mapView userLocation];
-    for (NSArray *annotation in _mapView.annotations) {
-        if ((id)annotation != userLocation) {
-            [_mapView removeAnnotation:(id<MKAnnotation>)annotation];
-        }
-    }
     
-    CLLocationCoordinate2D  ctrpoint;
-    ctrpoint.latitude = 37.78584545;
-    ctrpoint.longitude =-122.40652160;
-    Annotation *addAnnotation = [[Annotation alloc] initWithCoordinate:ctrpoint];
-    [addAnnotation setTitle:@"Prakash"];
-    [addAnnotation setSubtitle:@"Dandapani"];
-    [_mapView addAnnotation:addAnnotation];
-    
-    ctrpoint.latitude = 37.8267;
-    ctrpoint.longitude =-122.4233;
-    addAnnotation = [[Annotation alloc] initWithCoordinate:ctrpoint];
-    [addAnnotation setTitle:@"Jason"];
-    [addAnnotation setSubtitle:@"Barker"];
-    [_mapView addAnnotation:addAnnotation];
-    
-    ctrpoint.latitude = 37.8025;
-    ctrpoint.longitude =-122.4058;
-    addAnnotation = [[Annotation alloc] initWithCoordinate:ctrpoint];
-    [addAnnotation setTitle:@"John"];
-    [addAnnotation setSubtitle:@"Lyne"];
-    [_mapView addAnnotation:addAnnotation];
-    
-    ctrpoint.latitude = 37.7833365;
-    ctrpoint.longitude =-122.4026377;
-    addAnnotation = [[Annotation alloc] initWithCoordinate:ctrpoint];
-    [addAnnotation setTitle:@"Mark"];
-    [addAnnotation setSubtitle:@"Benioff"];
-    [_mapView addAnnotation:addAnnotation];
 }
 
 @end
