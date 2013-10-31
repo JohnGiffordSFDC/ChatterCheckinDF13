@@ -30,12 +30,14 @@ static LoadingViewController * _sharedLoadingViewController = nil;
 - (void)addLoadingView:(UIView *)view
 {
     [_loadingLabel setText:@"Loading..."];
+	self.view.frame = view.bounds;
     [view addSubview:self.view];
 }
 
 - (void)addLoadingView:(UIView *)view withLabel:(NSString *)label
 {
     [_loadingLabel setText:label];
+	self.view.frame = view.bounds;
     [view addSubview:self.view];
 }
 
