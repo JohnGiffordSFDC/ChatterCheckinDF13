@@ -69,6 +69,8 @@
 		B0838E341822F4B700AB0387 /* feed_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B0838E301822F4B700AB0387 /* feed_icon@2x.png */; };
 		B0838E3A1822F50900AB0387 /* Annotation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0838E371822F50900AB0387 /* Annotation.m */; };
 		B0838E3B1822F50900AB0387 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = B0838E391822F50900AB0387 /* User.m */; };
+		B0838E421824026F00AB0387 /* LoadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0838E411824026F00AB0387 /* LoadingCell.m */; };
+		B0838E451824050000AB0387 /* PlaceholderRow.m in Sources */ = {isa = PBXBuildFile; fileRef = B0838E441824050000AB0387 /* PlaceholderRow.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -293,6 +295,10 @@
 		B0838E371822F50900AB0387 /* Annotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Annotation.m; sourceTree = "<group>"; };
 		B0838E381822F50900AB0387 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		B0838E391822F50900AB0387 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		B0838E401824026F00AB0387 /* LoadingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingCell.h; sourceTree = "<group>"; };
+		B0838E411824026F00AB0387 /* LoadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingCell.m; sourceTree = "<group>"; };
+		B0838E431824050000AB0387 /* PlaceholderRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceholderRow.h; sourceTree = "<group>"; };
+		B0838E441824050000AB0387 /* PlaceholderRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceholderRow.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -805,6 +811,7 @@
 		B0838E101822F16700AB0387 /* Select Users */ = {
 			isa = PBXGroup;
 			children = (
+				B0838E3F1824026F00AB0387 /* Cells */,
 				B0838E111822F16700AB0387 /* SelectUserViewController.h */,
 				B0838E121822F16700AB0387 /* SelectUserViewController.m */,
 				B0838E131822F16700AB0387 /* SelectUserViewController.xib */,
@@ -840,8 +847,19 @@
 				B0838E371822F50900AB0387 /* Annotation.m */,
 				B0838E381822F50900AB0387 /* User.h */,
 				B0838E391822F50900AB0387 /* User.m */,
+				B0838E431824050000AB0387 /* PlaceholderRow.h */,
+				B0838E441824050000AB0387 /* PlaceholderRow.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B0838E3F1824026F00AB0387 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B0838E401824026F00AB0387 /* LoadingCell.h */,
+				B0838E411824026F00AB0387 /* LoadingCell.m */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -933,12 +951,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0838E451824050000AB0387 /* PlaceholderRow.m in Sources */,
 				B0838E1F1822F16700AB0387 /* FeedTableViewController.m in Sources */,
 				824A9DE51724E16400C9BD79 /* main.m in Sources */,
 				B0838E1D1822F16700AB0387 /* FeedTableViewCell.m in Sources */,
 				B0838E251822F16700AB0387 /* MapViewController.m in Sources */,
 				B0838E231822F16700AB0387 /* LoadingViewController.m in Sources */,
 				B0838E291822F16700AB0387 /* NSString+JSON.m in Sources */,
+				B0838E421824026F00AB0387 /* LoadingCell.m in Sources */,
 				B0838E211822F16700AB0387 /* InitialViewController.m in Sources */,
 				B0838E3A1822F50900AB0387 /* Annotation.m in Sources */,
 				B0838E3B1822F50900AB0387 /* User.m in Sources */,

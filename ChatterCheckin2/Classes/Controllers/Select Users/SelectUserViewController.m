@@ -9,9 +9,13 @@
 #import "SelectUserViewController.h"
 #import "User.h"
 #import "LoadingViewController.h"
+#import "PlaceholderRow.h"
+#import "LoadingCell.h"
 
 @interface SelectUserViewController ()
-
+{
+	BOOL _reloading;
+}
 @end
 
 @implementation SelectUserViewController
@@ -22,7 +26,7 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+	
     }
     return self;
 }
@@ -31,12 +35,17 @@
 {
     [super viewDidLoad];
     
+	if (_dataRows == nil) {
+		_dataRows = [[NSMutableArray alloc] init];
+	}
+	
     if (_selectedUsers == nil) {
         _selectedUsers = [[NSMutableArray alloc]initWithCapacity:0];
     }
 
     [self setTitle:@"Users"];
-    [[LoadingViewController sharedController]addLoadingView:self.navigationController.view];
+
+	[self addLoadingCell];
     [self getUsers];
 }
 
@@ -48,9 +57,12 @@
 
 - (void)getUsers
 {
+	
+	_reloading = YES;
+	
 	SFRestRequest* request = [[SFRestAPI sharedInstance] requestForResources];
     
-    NSString *pathString = _nextPageURL != nil ? _nextPageURL : [NSString stringWithFormat:@"%@/chatter/users?pageSize=20", request.path];
+    NSString *pathString = _nextPageURL != nil ? _nextPageURL : [NSString stringWithFormat:@"%@/chatter/users?pageSize=50", request.path];
     
     request.path = pathString;
     
@@ -59,72 +71,136 @@
     [[SFRestAPI sharedInstance] send:request delegate:self];
 }
 
+#pragma mark - Loading Cell Updates
+
+- (void)addLoadingCell {
+	
+	[_dataRows addObject:[[PlaceholderRow alloc] init]];
+	
+	if(_dataRows.count == 1) {
+		[self.tableView reloadData];
+	} else {
+		[self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:_dataRows.count-1 inSection:0]]
+							  withRowAnimation:UITableViewRowAnimationFade];
+	}
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+	NSInteger maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
+	BOOL shouldGetNextPage = (maximumOffset - scrollView.contentOffset.y) <= 40.0;
+	
+	if (shouldGetNextPage && !_reloading) {
+		if ((NSNull *)_nextPageURL != [NSNull null]) {
+			[self addLoadingCell];
+			[self getUsers];
+		}
+	}
+}
+
+// Inserts the new page of data into the table, removing and loading cells in the process
+- (void)updateTable:(UITableView *)table withData:(NSMutableArray *)array sinceLastCount:(int)lastCount {
+	
+	int deleteIndex;
+	NSMutableArray * newPaths = [NSMutableArray array];
+	NSMutableArray * deletePaths = [NSMutableArray array];
+	
+	// Find and remove the loading cell, if existing
+	for (int x = 0; x < array.count; x++) {
+		if ([[array objectAtIndex:x] isKindOfClass:[PlaceholderRow class]]) {
+			[deletePaths addObject:[NSIndexPath indexPathForRow:x inSection:0]];
+			deleteIndex = x;
+			break;
+		}
+	}
+	
+	if(deletePaths.count) {
+		[array removeObjectAtIndex:deleteIndex];
+		lastCount -= 1;
+	}
+	
+	// Insert new indexes
+	for (int x = lastCount; x < array.count; x++) {
+		[newPaths addObject:[NSIndexPath indexPathForRow:x inSection:0]];
+	}
+	
+	// Finally perform batch updates
+	[table beginUpdates];
+	if(deletePaths.count) {
+		[table deleteRowsAtIndexPaths:deletePaths withRowAnimation:UITableViewRowAnimationFade];
+	}
+    [table insertRowsAtIndexPaths:newPaths withRowAnimation:UITableViewRowAnimationFade];
+	[table endUpdates];
+}
+
+#pragma mark - Response Parsing
+
+// Saving 'old' way for demo... TODO: reorganize this
+
+//- (void)request:(SFRestRequest *)request didLoadResponse:(id)jsonResponse {
+//    _nextPageURL = [jsonResponse objectForKey:@"nextPageUrl"];
+//
+//    NSArray *records = [jsonResponse objectForKey:@"following"];
+//    if(records.count != 0){
+//        [self processFollowers:jsonResponse];
+//    } else {
+//        [self processUsers:jsonResponse];
+//    }
+//
+//    NSSortDescriptor *sortDescriptor;
+//    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"fullName" ascending:YES];
+//    NSArray *sortedUsers = [_dataRows sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+//
+//    _dataRows = [[NSMutableArray alloc] initWithArray:sortedUsers];
+//
+//    [self.tableView reloadData];
+//
+//    if ((NSNull *)_nextPageURL != [NSNull null]) {
+//        [self getUsers];
+//    } else {
+//        [[LoadingViewController sharedController]removeLoadingView];
+//    }
+//}
+
+- (NSArray *)processUsers:(id)jsonResponse {
+    NSArray *records = [jsonResponse objectForKey:@"users"];
+    
+    
+	NSSortDescriptor *sortDescriptor;
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"fullName" ascending:YES];
+	
+    for (NSDictionary *user in [records sortedArrayUsingDescriptors:@[sortDescriptor]]) {
+        //NSLog(@"user: %@",user);
+        
+        User *newUser = [[User alloc] init];
+        newUser.fullName = [user objectForKey:@"name"];
+        newUser.userId = [user objectForKey:@"id"];
+        
+        [_dataRows addObject:newUser];
+	}
+	
+	return [NSArray arrayWithArray:_dataRows];
+}
+
 
 #pragma mark - SFRestAPIDelegate
 
 - (void)request:(SFRestRequest *)request didLoadResponse:(id)jsonResponse {
     _nextPageURL = [jsonResponse objectForKey:@"nextPageUrl"];
     
-    NSArray *records = [jsonResponse objectForKey:@"following"];
-    if(records.count != 0){
-        [self processFollowers:jsonResponse];
-    } else {
-        [self processUsers:jsonResponse];
-    }
-    
-    NSSortDescriptor *sortDescriptor;
-    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"fullName" ascending:YES];
-    NSArray *sortedUsers = [_dataRows sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-    
-    _dataRows = [[NSMutableArray alloc] initWithArray:sortedUsers];
-    
-    [self.tableView reloadData];
-    
-    if ((NSNull *)_nextPageURL != [NSNull null]) {
-        [self getUsers];
-    } else {
-        [[LoadingViewController sharedController]removeLoadingView];
-    }
+	int lastCount = _dataRows.count;
+	
+	// Process the new data
+	_dataRows = [self processUsers:jsonResponse].mutableCopy;
+	
+	// Update the table
+	[self updateTable:self.tableView
+			 withData:_dataRows
+	  sinceLastCount:lastCount];
+	
+    _reloading = NO;
 }
 
-- (void)processUsers:(id)jsonResponse {
-    NSArray *records = [jsonResponse objectForKey:@"users"];
-    
-    if (_dataRows == nil) {
-        _dataRows = [[NSMutableArray alloc]initWithCapacity:0];
-    }
-    
-    for (NSDictionary *user in records) {
-        NSLog(@"user: %@",user);
-        
-        User *newUser = [[User alloc] init];
-        newUser.fullName = [user objectForKey:@"name"];
-        newUser.userId = [user objectForKey:@"id"];
-        
-        [_dataRows addObject:newUser];
-	}
-}
-
-- (void)processFollowers:(id)jsonResponse {
-    NSArray *records = [jsonResponse objectForKey:@"following"];
-    
-    if (_dataRows == nil) {
-        _dataRows = [[NSMutableArray alloc]initWithCapacity:0];
-    }
-    
-    for (NSDictionary *following in records) {
-        NSDictionary *user = [following objectForKey:@"subject"];
-        NSLog(@"user: %@",user);
-        
-        User *newUser = [[User alloc] init];
-        newUser.fullName = [user objectForKey:@"name"];
-        newUser.userId = [user objectForKey:@"id"];
-        
-        [_dataRows addObject:newUser];
-	}
-}
-
-
+//TODO: error handling
 - (void)request:(SFRestRequest*)request didFailLoadWithError:(NSError*)error {
     NSLog(@"request:didFailLoadWithError: %@", error);
     //add your failed error handling here
@@ -150,7 +226,6 @@
     return user;
 }
 
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -169,29 +244,42 @@
     }
 }
 
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
-    User *user;
-    
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        user = [_filteredUsers objectAtIndex:indexPath.row];
-    } else {
-        user = [_dataRows objectAtIndex:indexPath.row];
-    }
-    
-    if ([_selectedUsers containsObject:user.userId]) {
-        [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
-    } else {
-        [cell setAccessoryType:UITableViewCellAccessoryNone];
-    }
-    
-    cell.textLabel.text = user.fullName;
+	
+	id object = [_dataRows objectAtIndex:indexPath.row];
+	UITableViewCell * cell = nil;
+	if ([object isKindOfClass:[PlaceholderRow class]]) {
+		static NSString *LoadingCellIdentifier = @"LoadingCell";
+		cell = (LoadingCell*)[tableView dequeueReusableCellWithIdentifier:LoadingCellIdentifier];
+		if (cell == nil) {
+			cell = (LoadingCell*)[[LoadingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LoadingCellIdentifier];
+		}
+	} else {
+		static NSString *CellIdentifier = @"Cell";
+		cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+		if (cell == nil) {
+			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+		}
+		
+		User *user;
+		
+		if (tableView == self.searchDisplayController.searchResultsTableView) {
+			user = [_filteredUsers objectAtIndex:indexPath.row];
+		} else {
+			user = [_dataRows objectAtIndex:indexPath.row];
+		}
+		
+		if ([_selectedUsers containsObject:user.userId]) {
+			[cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+		} else {
+			[cell setAccessoryType:UITableViewCellAccessoryNone];
+		}
+		
+		cell.textLabel.text = user.fullName;
+	}
     
     return cell;
 }
@@ -201,7 +289,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+	
     User *user;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         user = [_filteredUsers objectAtIndex:indexPath.row];
