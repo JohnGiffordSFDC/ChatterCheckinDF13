@@ -22,6 +22,9 @@
 		4D83E75418246B850022959B /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D83E74718246B850022959B /* Icon@2x.png */; };
 		4D83E75718246BAD0022959B /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 4D83E75518246BAD0022959B /* iTunesArtwork */; };
 		4D83E75818246BAD0022959B /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 4D83E75618246BAD0022959B /* iTunesArtwork@2x */; };
+		4DBCCD681824C7BD006C7619 /* ChatterPinAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBCCD671824C7BD006C7619 /* ChatterPinAnnotationView.m */; };
+		4DBCCD6B1825707F006C7619 /* chatterPin.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCD691825707F006C7619 /* chatterPin.png */; };
+		4DBCCD6C1825707F006C7619 /* chatterPin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCD6A1825707F006C7619 /* chatterPin@2x.png */; };
 		824A9DD91724E16400C9BD79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824A9DD81724E16400C9BD79 /* UIKit.framework */; };
 		824A9DDB1724E16400C9BD79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824A9DDA1724E16400C9BD79 /* Foundation.framework */; };
 		824A9DDD1724E16400C9BD79 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824A9DDC1724E16400C9BD79 /* CoreGraphics.framework */; };
@@ -100,6 +103,10 @@
 		4D83E74718246B850022959B /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "assets/Icons/Icon@2x.png"; sourceTree = "<group>"; };
 		4D83E75518246BAD0022959B /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		4D83E75618246BAD0022959B /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
+		4DBCCD661824C7BD006C7619 /* ChatterPinAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatterPinAnnotationView.h; path = Views/ChatterPinAnnotationView.h; sourceTree = "<group>"; };
+		4DBCCD671824C7BD006C7619 /* ChatterPinAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatterPinAnnotationView.m; path = Views/ChatterPinAnnotationView.m; sourceTree = "<group>"; };
+		4DBCCD691825707F006C7619 /* chatterPin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chatterPin.png; path = assets/chatterPin.png; sourceTree = "<group>"; };
+		4DBCCD6A1825707F006C7619 /* chatterPin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chatterPin@2x.png"; path = "assets/chatterPin@2x.png"; sourceTree = "<group>"; };
 		824A9DD51724E16400C9BD79 /* Checkin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Checkin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		824A9DD81724E16400C9BD79 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		824A9DDA1724E16400C9BD79 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -356,6 +363,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4DBCCD601824C395006C7619 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				4DBCCD691825707F006C7619 /* chatterPin.png */,
+				4DBCCD6A1825707F006C7619 /* chatterPin@2x.png */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
+		4DBCCD651824C757006C7619 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4DBCCD661824C7BD006C7619 /* ChatterPinAnnotationView.h */,
+				4DBCCD671824C7BD006C7619 /* ChatterPinAnnotationView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		824A9DCC1724E16400C9BD79 = {
 			isa = PBXGroup;
 			children = (
@@ -424,6 +449,7 @@
 				824A9E321724E2A900C9BD79 /* AppDelegate.m */,
 				B0838E351822F50900AB0387 /* Model */,
 				B0838DF81822F16700AB0387 /* Controllers */,
+				4DBCCD651824C757006C7619 /* Views */,
 				B0838E141822F16700AB0387 /* Categories */,
 				B0838E2C1822F4B700AB0387 /* Other Assets */,
 			);
@@ -433,6 +459,7 @@
 		824A9E421724EF9800C9BD79 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4DBCCD601824C395006C7619 /* images */,
 				824A9E591724F01500C9BD79 /* icons */,
 				824A9E5A1724F01D00C9BD79 /* splash */,
 				824A9E401724ECC600C9BD79 /* SalesforceSDKResources.bundle */,
@@ -949,6 +976,7 @@
 				4D83E75318246B850022959B /* Icon.png in Resources */,
 				824A9DE31724E16400C9BD79 /* InfoPlist.strings in Resources */,
 				4D83E74E18246B850022959B /* Icon-152x152.png in Resources */,
+				4DBCCD6B1825707F006C7619 /* chatterPin.png in Resources */,
 				824A9E3D1724E9F400C9BD79 /* readme.txt in Resources */,
 				4D83E74A18246B850022959B /* Icon-72@2x.png in Resources */,
 				B0838E221822F16700AB0387 /* InitialViewController.xib in Resources */,
@@ -973,6 +1001,7 @@
 				824A9E6D1724F03D00C9BD79 /* Default-Portrait@2x~ipad.png in Resources */,
 				4D83E75018246B850022959B /* Icon-Small-50@2x.png in Resources */,
 				B0838E1C1822F16700AB0387 /* CheckinViewController.xib in Resources */,
+				4DBCCD6C1825707F006C7619 /* chatterPin@2x.png in Resources */,
 				824A9E6E1724F03D00C9BD79 /* Default-Portrait~ipad.png in Resources */,
 				B0838E341822F4B700AB0387 /* feed_icon@2x.png in Resources */,
 				4D83E74B18246B850022959B /* Icon-76x76.png in Resources */,
@@ -998,6 +1027,7 @@
 				B0838E451824050000AB0387 /* PlaceholderRow.m in Sources */,
 				B0838E1F1822F16700AB0387 /* FeedTableViewController.m in Sources */,
 				824A9DE51724E16400C9BD79 /* main.m in Sources */,
+				4DBCCD681824C7BD006C7619 /* ChatterPinAnnotationView.m in Sources */,
 				B0838E1D1822F16700AB0387 /* FeedTableViewCell.m in Sources */,
 				B0838E251822F16700AB0387 /* MapViewController.m in Sources */,
 				B0838E231822F16700AB0387 /* LoadingViewController.m in Sources */,

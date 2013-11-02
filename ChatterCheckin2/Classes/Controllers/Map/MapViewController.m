@@ -11,6 +11,7 @@
 #import "SFAuthenticationManager.h"
 #import "AppDelegate.h"
 #import "Annotation.h"
+#import "ChatterPinAnnotationView.h"
 
 @implementation MapViewController
 
@@ -34,22 +35,6 @@
     [self setupNavbar];
     [self setupTabBar];
 
-}
-
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
-    if ([annotation isKindOfClass:[MKUserLocation class]]) {
-        return nil;
-    }
-    
-    static NSString* ShopAnnotationIdentifier = @"shopAnnotationIdentifier";
-    MKPinAnnotationView *pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:ShopAnnotationIdentifier];
-    if (!pinView) {
-        pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:ShopAnnotationIdentifier];
-        pinView.pinColor = MKPinAnnotationColorRed;
-        pinView.canShowCallout = YES;
-        pinView.animatesDrop = YES;
-    }
-    return pinView;
 }
 
 - (void)viewDidUnload
@@ -84,21 +69,6 @@
     [self.tabBarController.tabBar setTintColor:[UIColor darkGrayColor]];
 }
 
-- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
-{
-    // we have received our current location, so enable the "Get Current Address" button
-    MKCoordinateRegion mapRegion;
-    mapRegion.center = self.mapView.userLocation.coordinate;
-    mapRegion.span.latitudeDelta = 0.075;
-    mapRegion.span.longitudeDelta = 0.075;
-    
-    [_mapView setRegion:mapRegion animated: YES];
-    
-    _currentLocation = [userLocation coordinate];
-    
-    [_checkinButton setEnabled:YES];
-}
-
 - (IBAction)performCoordinateGeocode:(id)sender
 {
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
@@ -119,6 +89,49 @@
         [self displayCheckin:placemarks];
 
     }];
+}
+
+#pragma mark - MKMapViewDelegate messages
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    MKAnnotationView *annotationView = nil;
+    static NSString* ShopAnnotationIdentifier = @"shopAnnotationIdentifier";
+    static NSString *ChatterPinAnnotationIdentifier = @"ChatterPinAnnotationViewIdentifier";
+    
+    if ([annotation isKindOfClass:[MKUserLocation class]]) {
+        annotationView = (ChatterPinAnnotationView *) [mapView dequeueReusableAnnotationViewWithIdentifier: ChatterPinAnnotationIdentifier];
+        if (!annotationView) {
+            annotationView = [[ChatterPinAnnotationView alloc] initWithAnnotation: annotation reuseIdentifier: ChatterPinAnnotationIdentifier];
+        }
+    }
+    else {
+        MKPinAnnotationView *pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:ShopAnnotationIdentifier];
+        if (!pinView) {
+            pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:ShopAnnotationIdentifier];
+            pinView.pinColor = MKPinAnnotationColorRed;
+            pinView.canShowCallout = YES;
+            pinView.animatesDrop = YES;
+            annotationView = pinView;
+        }
+    }
+    
+    return annotationView;
+}
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    // we have received our current location, so enable the "Get Current Address" button
+    MKCoordinateRegion mapRegion;
+    mapRegion.center = self.mapView.userLocation.coordinate;
+    mapRegion.span.latitudeDelta = 0.075;
+    mapRegion.span.longitudeDelta = 0.075;
+    
+    [_mapView setRegion:mapRegion animated: YES];
+    
+    _currentLocation = [userLocation coordinate];
+    
+    [_checkinButton setEnabled:YES];
 }
 
 #pragma mark - SFRestAPIDelegate
