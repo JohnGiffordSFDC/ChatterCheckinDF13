@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SFRestAPI.h"
 
-@interface SelectUserViewController : UITableViewController <SFRestDelegate,UISearchBarDelegate> {
+@interface SelectUserViewControllerOrig : UITableViewController <SFRestDelegate,UISearchBarDelegate> {
     NSMutableArray *_dataRows;
     NSMutableArray *_selectedUsers;
     NSMutableArray *_filteredUsers;

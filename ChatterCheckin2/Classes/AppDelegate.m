@@ -32,11 +32,8 @@
 #import "FeedTableViewController.h"
 
 // Fill these in when creating a new Connected Application on Force.com
-//OLD 3MVG9Iu66FKeHhINkB1l7xt7kR8czFcCTUhgoA8Ol2Ltf1eYHOU4SqQRSEitYFDUpqRWcoQ2.dBv_a1Dyu5xa
-
 static NSString * const RemoteAccessConsumerKey = @"3MVG9y6x0357HlefVK0jK_X_LSHwYYNZBJPCrx1WN1tB8AkC9s6nqv1MyW4QI7JpNqnTLz7N7qVfXCak6U3O_";
 static NSString * const OAuthRedirectURI        = @"https://login.salesforce.com/services/oauth2/success";
-//@"testsfdc:///mobilesdk/detect/oauth/done";
 
 @interface AppDelegate ()
 
@@ -88,7 +85,7 @@ static NSString * const OAuthRedirectURI        = @"https://login.salesforce.com
 {
     self = [super init];
     if (self) {
-        [SFLogger setLogLevel:SFLogLevelDebug];
+        [SFLogger setLogLevel:SFLogLevelError];
         
         // These SFAccountManager settings are the minimum required to identify the Connected App.
         [SFAccountManager setClientId:RemoteAccessConsumerKey];
