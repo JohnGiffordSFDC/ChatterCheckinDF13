@@ -62,6 +62,8 @@
 		824A9FF617250BFA00C9BD79 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824A9FF517250BFA00C9BD79 /* Security.framework */; };
 		824A9FF817250C0100C9BD79 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824A9FF717250C0100C9BD79 /* SystemConfiguration.framework */; };
 		8273F18A1778F39F005E31A6 /* libSalesforceCommonUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8273F1881778F39F005E31A6 /* libSalesforceCommonUtils.a */; };
+		B0359D931826E95C00889929 /* SelectUserViewControllerOrig.m in Sources */ = {isa = PBXBuildFile; fileRef = B0359D911826E95C00889929 /* SelectUserViewControllerOrig.m */; };
+		B0359D941826E95C00889929 /* SelectUserViewControllerOrig.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0359D921826E95C00889929 /* SelectUserViewControllerOrig.xib */; };
 		B0838DF51822EF2700AB0387 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0838DF41822EF2700AB0387 /* MapKit.framework */; };
 		B0838DF71822EF5D00AB0387 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0838DF61822EF5D00AB0387 /* CoreLocation.framework */; };
 		B0838E1B1822F16700AB0387 /* CheckinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0838DFB1822F16700AB0387 /* CheckinViewController.m */; };
@@ -295,6 +297,9 @@
 		8273F1861778F39F005E31A6 /* UIDevice+SFHardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+SFHardware.h"; sourceTree = "<group>"; };
 		8273F1871778F39F005E31A6 /* UILabel+SFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+SFAdditions.h"; sourceTree = "<group>"; };
 		8273F1881778F39F005E31A6 /* libSalesforceCommonUtils.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSalesforceCommonUtils.a; sourceTree = "<group>"; };
+		B0359D901826E95C00889929 /* SelectUserViewControllerOrig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectUserViewControllerOrig.h; sourceTree = "<group>"; };
+		B0359D911826E95C00889929 /* SelectUserViewControllerOrig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectUserViewControllerOrig.m; sourceTree = "<group>"; };
+		B0359D921826E95C00889929 /* SelectUserViewControllerOrig.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectUserViewControllerOrig.xib; sourceTree = "<group>"; };
 		B0838DF41822EF2700AB0387 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		B0838DF61822EF5D00AB0387 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B0838DFA1822F16700AB0387 /* CheckinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinViewController.h; sourceTree = "<group>"; };
@@ -808,6 +813,16 @@
 			path = SalesforceCommonUtils;
 			sourceTree = "<group>";
 		};
+		B0359D8F1826E95C00889929 /* Old SelectUserViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B0359D901826E95C00889929 /* SelectUserViewControllerOrig.h */,
+				B0359D911826E95C00889929 /* SelectUserViewControllerOrig.m */,
+				B0359D921826E95C00889929 /* SelectUserViewControllerOrig.xib */,
+			);
+			path = "Old SelectUserViewController";
+			sourceTree = "<group>";
+		};
 		B0838DF81822F16700AB0387 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -877,6 +892,7 @@
 		B0838E101822F16700AB0387 /* Select Users */ = {
 			isa = PBXGroup;
 			children = (
+				B0359D8F1826E95C00889929 /* Old SelectUserViewController */,
 				B0838E3F1824026F00AB0387 /* Cells */,
 				B0838E111822F16700AB0387 /* SelectUserViewController.h */,
 				B0838E121822F16700AB0387 /* SelectUserViewController.m */,
@@ -995,6 +1011,10 @@
 				4D83E75118246B850022959B /* Icon-Small.png in Resources */,
 				824A9E411724ECC600C9BD79 /* SalesforceSDKResources.bundle in Resources */,
 				B0838E1E1822F16700AB0387 /* FeedTableViewCell.xib in Resources */,
+				824A9E601724F02D00C9BD79 /* icon-72@2x.png in Resources */,
+				824A9E611724F02D00C9BD79 /* icon.png in Resources */,
+				B0359D941826E95C00889929 /* SelectUserViewControllerOrig.xib in Resources */,
+				824A9E621724F02D00C9BD79 /* icon@2x.png in Resources */,
 				4D83E75218246B850022959B /* Icon-Small@2x.png in Resources */,
 				4D83E75818246BAD0022959B /* iTunesArtwork@2x in Resources */,
 				4D83E74918246B850022959B /* Icon-72.png in Resources */,
@@ -1037,6 +1057,7 @@
 				824A9DE51724E16400C9BD79 /* main.m in Sources */,
 				4DBCCD681824C7BD006C7619 /* ChatterPinAnnotationView.m in Sources */,
 				B0838E1D1822F16700AB0387 /* FeedTableViewCell.m in Sources */,
+				B0359D931826E95C00889929 /* SelectUserViewControllerOrig.m in Sources */,
 				B0838E251822F16700AB0387 /* MapViewController.m in Sources */,
 				B0838E231822F16700AB0387 /* LoadingViewController.m in Sources */,
 				B0838E291822F16700AB0387 /* NSString+JSON.m in Sources */,

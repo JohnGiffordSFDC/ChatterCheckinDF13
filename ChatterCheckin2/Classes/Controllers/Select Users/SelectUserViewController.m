@@ -11,6 +11,7 @@
 #import "LoadingViewController.h"
 #import "PlaceholderRow.h"
 #import "LoadingCell.h"
+#import "SFRestAPI+Blocks.h"
 
 @interface SelectUserViewController ()
 {
@@ -40,12 +41,11 @@
 	}
 	
     if (_selectedUsers == nil) {
-        _selectedUsers = [[NSMutableArray alloc]initWithCapacity:0];
+        _selectedUsers = [[NSMutableArray alloc] init];
     }
 
     [self setTitle:@"Users"];
 
-	[self addLoadingCell];
     [self getUsers];
 }
 
@@ -61,14 +61,29 @@
 	_reloading = YES;
 	
 	SFRestRequest* request = [[SFRestAPI sharedInstance] requestForResources];
-    
-    NSString *pathString = _nextPageURL != nil ? _nextPageURL : [NSString stringWithFormat:@"%@/chatter/users?pageSize=50", request.path];
+
+    NSString *pathString = _nextPageURL != nil ? _nextPageURL : [NSString stringWithFormat:@"%@/chatter/users?pageSize=20",request.path];
     
     request.path = pathString;
     
-    NSLog(@"Path: %@",request.path);
-    
-    [[SFRestAPI sharedInstance] send:request delegate:self];
+	[self addLoadingCell];	
+	[[SFRestAPI sharedInstance] send:request delegate:self];
+}
+
+- (void)processJson:(id)json {
+	_nextPageURL = [json objectForKey:@"nextPageUrl"];
+	
+	int lastCount = _dataRows.count;
+	
+	// Process the new data
+	_dataRows = [self processUsers:json].mutableCopy;
+	
+	// Update the table
+	[self updateTable:self.tableView
+			 withData:_dataRows
+	   sinceLastCount:lastCount];
+	
+	_reloading = NO;
 }
 
 #pragma mark - Loading Cell Updates
@@ -85,13 +100,16 @@
 	}
 }
 
+// UIScrollView Deletegate used here to help with getting the next page
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+	
+	// If the user scrolls near the end of the table, start getting the next page of records
 	NSInteger maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
-	BOOL shouldGetNextPage = (maximumOffset - scrollView.contentOffset.y) <= 40.0;
+	BOOL shouldGetNextPage = (maximumOffset - scrollView.contentOffset.y) <= 240.0;
 	
 	if (shouldGetNextPage && !_reloading) {
 		if ((NSNull *)_nextPageURL != [NSNull null]) {
-			[self addLoadingCell];
+			NSLog(@"getting next page: %@", _nextPageURL);
 			[self getUsers];
 		}
 	}
@@ -134,42 +152,11 @@
 
 #pragma mark - Response Parsing
 
-// Saving 'old' way for demo... TODO: reorganize this
-
-//- (void)request:(SFRestRequest *)request didLoadResponse:(id)jsonResponse {
-//    _nextPageURL = [jsonResponse objectForKey:@"nextPageUrl"];
-//
-//    NSArray *records = [jsonResponse objectForKey:@"following"];
-//    if(records.count != 0){
-//        [self processFollowers:jsonResponse];
-//    } else {
-//        [self processUsers:jsonResponse];
-//    }
-//
-//    NSSortDescriptor *sortDescriptor;
-//    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"fullName" ascending:YES];
-//    NSArray *sortedUsers = [_dataRows sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-//
-//    _dataRows = [[NSMutableArray alloc] initWithArray:sortedUsers];
-//
-//    [self.tableView reloadData];
-//
-//    if ((NSNull *)_nextPageURL != [NSNull null]) {
-//        [self getUsers];
-//    } else {
-//        [[LoadingViewController sharedController]removeLoadingView];
-//    }
-//}
-
-- (NSArray *)processUsers:(id)jsonResponse {
+- (NSMutableArray *)processUsers:(id)jsonResponse {
     NSArray *records = [jsonResponse objectForKey:@"users"];
     
-    
-	NSSortDescriptor *sortDescriptor;
-    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"fullName" ascending:YES];
-	
+	NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"fullName" ascending:YES];
     for (NSDictionary *user in [records sortedArrayUsingDescriptors:@[sortDescriptor]]) {
-        //NSLog(@"user: %@",user);
         
         User *newUser = [[User alloc] init];
         newUser.fullName = [user objectForKey:@"name"];
@@ -178,19 +165,21 @@
         [_dataRows addObject:newUser];
 	}
 	
-	return [NSArray arrayWithArray:_dataRows];
+	return _dataRows;
 }
 
 
 #pragma mark - SFRestAPIDelegate
 
 - (void)request:(SFRestRequest *)request didLoadResponse:(id)jsonResponse {
-    _nextPageURL = [jsonResponse objectForKey:@"nextPageUrl"];
     
+	// Grab URL to next page of records
+	_nextPageURL = [jsonResponse objectForKey:@"nextPageUrl"];
+    NSLog(@"Got Response: %@",jsonResponse);
 	int lastCount = _dataRows.count;
 	
 	// Process the new data
-	_dataRows = [self processUsers:jsonResponse].mutableCopy;
+	_dataRows = [self processUsers:jsonResponse];
 	
 	// Update the table
 	[self updateTable:self.tableView
@@ -237,18 +226,12 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        return _filteredUsers == nil ? 0 : [_filteredUsers count];
-    } else {
-        return _dataRows == nil ? 0 : [_dataRows count];
-    }
+	return _dataRows == nil ? 0 : [_dataRows count];
 }
-
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	
 	id object = [_dataRows objectAtIndex:indexPath.row];
 	UITableViewCell * cell = nil;
 	if ([object isKindOfClass:[PlaceholderRow class]]) {
@@ -264,13 +247,7 @@
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 		}
 		
-		User *user;
-		
-		if (tableView == self.searchDisplayController.searchResultsTableView) {
-			user = [_filteredUsers objectAtIndex:indexPath.row];
-		} else {
-			user = [_dataRows objectAtIndex:indexPath.row];
-		}
+		User * user = [_dataRows objectAtIndex:indexPath.row];
 		
 		if ([_selectedUsers containsObject:user.userId]) {
 			[cell setAccessoryType:UITableViewCellAccessoryCheckmark];
@@ -290,13 +267,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	
-    User *user;
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        user = [_filteredUsers objectAtIndex:indexPath.row];
-        [self.searchDisplayController.searchResultsTableView reloadData];
-    } else {
-        user = [_dataRows objectAtIndex:indexPath.row];
-    }
+    User * user = [_dataRows objectAtIndex:indexPath.row];
     
     if ([_selectedUsers containsObject:user.userId]) {
         [_selectedUsers removeObject:user.userId];
@@ -307,32 +278,49 @@
     [self.tableView reloadData];
 }
 
-#pragma mark - UISearchDisplayControllerDelegate
+#pragma mark - Search Query
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
-{
-    // Tells the table data source to reload when text changes
-    UISearchBar *searchBar = self.searchDisplayController.searchBar;
-    [self filterContentForSearchText:searchString scope:[[searchBar scopeButtonTitles] objectAtIndex:[searchBar selectedScopeButtonIndex]]];
-    
-    // Return YES to cause the search result table view to be reloaded.
-    return YES;
-}
-
-#pragma mark Content Filtering
-
-- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
-{
-	// Update the filtered array based on the search text and scope.
+- (void)performSearchFor:(NSString *)searchString {
+	_reloading = YES;
 	
-    // Remove all objects from the filtered search array
-	[_filteredUsers removeAllObjects];
+	SFRestRequest* request = [[SFRestAPI sharedInstance] requestForResources];
     
-	// Filter the array using NSPredicate
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"fullName contains[c] %@",searchText];
+    NSString *pathString = [NSString stringWithFormat:@"%@/chatter/users?q=%@&pageSize=20",request.path,searchString];
     
-    _filteredUsers = [[NSMutableArray alloc]initWithArray:[_dataRows filteredArrayUsingPredicate:predicate]];
+    request.path = pathString;
+    
+    NSLog(@"Search Path: %@",request.path);
+	
+	[self addLoadingCell];
+	[[SFRestAPI sharedInstance] send:request delegate:self];
 }
 
+#pragma mark - UISearchBarDelegate
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+	searchBar.showsCancelButton = YES;
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+	searchBar.showsCancelButton = NO;
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+	NSLog(@"Search bar clicked: %@",searchBar.text);
+	_nextPageURL = nil;
+	[_dataRows removeAllObjects];
+	[self.tableView reloadData];
+	[self performSearchFor:searchBar.text];
+	[searchBar resignFirstResponder];
+
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+	[searchBar resignFirstResponder];
+	_nextPageURL = nil;
+	[_dataRows removeAllObjects];
+	[self.tableView reloadData];
+	[self getUsers];
+}
 
 @end

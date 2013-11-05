@@ -8,7 +8,13 @@
 
 #import "CheckinViewController.h"
 #import <CoreLocation/CoreLocation.h>
+
+// Good
 #import "SelectUserViewController.h"
+
+// Bad
+#import "SelectUserViewControllerOrig.h"
+
 #import "LoadingViewController.h"
 
 @interface CheckinViewController ()
@@ -78,11 +84,21 @@
 #pragma mark - Instance Methods
 
 - (IBAction)selectPeople:(id)sender {
-    SelectUserViewController *msvc = [[SelectUserViewController alloc]initWithNibName:@"SelectUserViewController" bundle:nil];
-    if (_selectedUsers == nil) {
-        _selectedUsers = [[NSMutableArray alloc]initWithCapacity:0];
+
+	// Unoptimized user selection
+	SelectUserViewControllerOrig * msvc = [[SelectUserViewControllerOrig alloc] init];
+	
+	// Optimized user selection
+//    SelectUserViewController *msvc = [[SelectUserViewController alloc] init];
+	
+	
+	if (_selectedUsers == nil) {
+        _selectedUsers = [[NSMutableArray alloc] init];
     }
+	[_selectedUsers removeAllObjects];
     msvc.selectedUsers = _selectedUsers;
+	
+	
     [self.navigationController pushViewController:msvc animated:YES];
 }
 
