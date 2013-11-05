@@ -86,10 +86,10 @@
 - (IBAction)selectPeople:(id)sender {
 
 	// Unoptimized user selection
-	SelectUserViewControllerOrig * msvc = [[SelectUserViewControllerOrig alloc] init];
+//	SelectUserViewControllerOrig * msvc = [[SelectUserViewControllerOrig alloc] init];
 	
 	// Optimized user selection
-//    SelectUserViewController *msvc = [[SelectUserViewController alloc] init];
+    SelectUserViewController *msvc = [[SelectUserViewController alloc] init];
 	
 	
 	if (_selectedUsers == nil) {

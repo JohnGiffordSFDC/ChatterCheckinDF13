@@ -57,7 +57,6 @@
 
 - (void)getUsers
 {
-	
 	_reloading = YES;
 	
 	SFRestRequest* request = [[SFRestAPI sharedInstance] requestForResources];
@@ -76,7 +75,7 @@
 	int lastCount = _dataRows.count;
 	
 	// Process the new data
-	_dataRows = [self processUsers:json].mutableCopy;
+	_dataRows = [self processUsers:json];
 	
 	// Update the table
 	[self updateTable:self.tableView
@@ -88,10 +87,13 @@
 
 #pragma mark - Loading Cell Updates
 
+// Add loading cell at the last position in the table
 - (void)addLoadingCell {
 	
+	// Create a spot in the data source for the cell
 	[_dataRows addObject:[[PlaceholderRow alloc] init]];
 	
+	// Update the table to display the cell
 	if(_dataRows.count == 1) {
 		[self.tableView reloadData];
 	} else {
