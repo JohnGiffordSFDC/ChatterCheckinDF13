@@ -24,12 +24,12 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="basic_blue_background.png" translatesAutoresizingMaskIntoConstraints="NO" id="cQw-hd-ZrA" userLabel="Background Image View">
+                <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="basic_blue_background.png" translatesAutoresizingMaskIntoConstraints="NO" id="cQw-hd-ZrA" userLabel="Background Image View">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rtO-HN-IJG" userLabel="Details Table View">
-                    <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rtO-HN-IJG" userLabel="Details Table View">
+                    <rect key="frame" x="0.0" y="44" width="320" height="524"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
@@ -39,6 +39,14 @@
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="rtO-HN-IJG" firstAttribute="top" secondItem="1" secondAttribute="top" constant="44" id="8qa-fC-CpU"/>
+                <constraint firstItem="rtO-HN-IJG" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="C5V-bT-6kE"/>
+                <constraint firstAttribute="bottom" secondItem="rtO-HN-IJG" secondAttribute="bottom" id="JTk-nO-ONw"/>
+                <constraint firstItem="rtO-HN-IJG" firstAttribute="leading" secondItem="cQw-hd-ZrA" secondAttribute="leading" id="Jnu-NY-mZK"/>
+                <constraint firstItem="rtO-HN-IJG" firstAttribute="trailing" secondItem="cQw-hd-ZrA" secondAttribute="trailing" id="UTq-AN-JwW"/>
+                <constraint firstItem="rtO-HN-IJG" firstAttribute="bottom" secondItem="cQw-hd-ZrA" secondAttribute="bottom" id="nNh-b8-EVo"/>
+            </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
