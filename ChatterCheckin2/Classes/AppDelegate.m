@@ -143,16 +143,16 @@ static NSString * const OAuthRedirectURI        = @"https://login.salesforce.com
     UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:fvc];
     [nav1 setTitle:@"My Chatter"];
     [nav1.navigationBar setBarStyle:UIBarStyleBlackOpaque];
-    [nav1.tabBarItem setImage:[UIImage imageNamed:@"feed_icon.png"]];
+    [nav1.tabBarItem setImage:[UIImage imageNamed:@"tab_thoughtBubble"]];
     
     MapViewController *mvc = [[MapViewController alloc]initWithNibName:@"MapViewController" bundle:nil];
     [mvc setTitle:@"Location"];
     
     UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:mvc];
     
-    [nav2.tabBarItem setImage:[UIImage imageNamed:@"checkin.png"]];
-    [nav2.tabBarItem setTitle:@"Checkin"];
-    [nav2.navigationBar setBarStyle:UIBarStyleBlackOpaque];
+    [nav2.tabBarItem setImage: [UIImage imageNamed:@"tab_pin"]];
+    [nav2.tabBarItem setTitle: @"Check-in"];
+    [nav2.navigationBar setBarStyle: UIBarStyleBlackOpaque];
     
     UITabBarController *utb = [[UITabBarController alloc] init];
     [utb setViewControllers:[NSArray arrayWithObjects:nav2, nav1, nil]];

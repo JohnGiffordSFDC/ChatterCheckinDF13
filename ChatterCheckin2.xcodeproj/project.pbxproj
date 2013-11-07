@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D32CAF8182B585E00B73A14 /* tab_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D32CAF6182B585E00B73A14 /* tab_pin.png */; };
+		4D32CAF9182B585E00B73A14 /* tab_pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D32CAF7182B585E00B73A14 /* tab_pin@2x.png */; };
+		4D32CAFE182B5D9F00B73A14 /* tab_thoughtBubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D32CAFA182B5D9F00B73A14 /* tab_thoughtBubble.png */; };
+		4D32CAFF182B5D9F00B73A14 /* tab_thoughtBubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D32CAFB182B5D9F00B73A14 /* tab_thoughtBubble@2x.png */; };
+		4D32CB00182B5D9F00B73A14 /* tab_wordBubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D32CAFC182B5D9F00B73A14 /* tab_wordBubble.png */; };
+		4D32CB01182B5D9F00B73A14 /* tab_wordBubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D32CAFD182B5D9F00B73A14 /* tab_wordBubble@2x.png */; };
 		4D83E74818246B850022959B /* Icon-40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D83E73B18246B850022959B /* Icon-40x40.png */; };
 		4D83E74918246B850022959B /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D83E73C18246B850022959B /* Icon-72.png */; };
 		4D83E74A18246B850022959B /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D83E73D18246B850022959B /* Icon-72@2x.png */; };
@@ -27,6 +33,8 @@
 		4DBCCD6C1825707F006C7619 /* chatterPin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCD6A1825707F006C7619 /* chatterPin@2x.png */; };
 		4DBCCD6F18286CAC006C7619 /* basic_blue_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCD6D18286CAC006C7619 /* basic_blue_background.png */; };
 		4DBCCD7018286CAC006C7619 /* basic_blue_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCD6E18286CAC006C7619 /* basic_blue_background@2x.png */; };
+		4DBCCD7418286E6D006C7619 /* Checkin2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBCCD7218286E6D006C7619 /* Checkin2ViewController.m */; };
+		4DBCCD7518286E6D006C7619 /* Checkin2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCD7318286E6D006C7619 /* Checkin2ViewController.xib */; };
 		824A9DD91724E16400C9BD79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824A9DD81724E16400C9BD79 /* UIKit.framework */; };
 		824A9DDB1724E16400C9BD79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824A9DDA1724E16400C9BD79 /* Foundation.framework */; };
 		824A9DDD1724E16400C9BD79 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824A9DDC1724E16400C9BD79 /* CoreGraphics.framework */; };
@@ -92,6 +100,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D32CAF6182B585E00B73A14 /* tab_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tab_pin.png; path = assets/tab_pin.png; sourceTree = "<group>"; };
+		4D32CAF7182B585E00B73A14 /* tab_pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab_pin@2x.png"; path = "assets/tab_pin@2x.png"; sourceTree = "<group>"; };
+		4D32CAFA182B5D9F00B73A14 /* tab_thoughtBubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tab_thoughtBubble.png; path = assets/tab_thoughtBubble.png; sourceTree = "<group>"; };
+		4D32CAFB182B5D9F00B73A14 /* tab_thoughtBubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab_thoughtBubble@2x.png"; path = "assets/tab_thoughtBubble@2x.png"; sourceTree = "<group>"; };
+		4D32CAFC182B5D9F00B73A14 /* tab_wordBubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tab_wordBubble.png; path = assets/tab_wordBubble.png; sourceTree = "<group>"; };
+		4D32CAFD182B5D9F00B73A14 /* tab_wordBubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab_wordBubble@2x.png"; path = "assets/tab_wordBubble@2x.png"; sourceTree = "<group>"; };
 		4D83E73B18246B850022959B /* Icon-40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-40x40.png"; path = "assets/Icons/Icon-40x40.png"; sourceTree = "<group>"; };
 		4D83E73C18246B850022959B /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "assets/Icons/Icon-72.png"; sourceTree = "<group>"; };
 		4D83E73D18246B850022959B /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "assets/Icons/Icon-72@2x.png"; sourceTree = "<group>"; };
@@ -113,6 +127,10 @@
 		4DBCCD6A1825707F006C7619 /* chatterPin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chatterPin@2x.png"; path = "assets/chatterPin@2x.png"; sourceTree = "<group>"; };
 		4DBCCD6D18286CAC006C7619 /* basic_blue_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = basic_blue_background.png; path = assets/basic_blue_background.png; sourceTree = "<group>"; };
 		4DBCCD6E18286CAC006C7619 /* basic_blue_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "basic_blue_background@2x.png"; path = "assets/basic_blue_background@2x.png"; sourceTree = "<group>"; };
+		4DBCCD7118286E6D006C7619 /* Checkin2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Checkin2ViewController.h; sourceTree = "<group>"; };
+		4DBCCD7218286E6D006C7619 /* Checkin2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Checkin2ViewController.m; sourceTree = "<group>"; };
+		4DBCCD7318286E6D006C7619 /* Checkin2ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Checkin2ViewController.xib; sourceTree = "<group>"; };
+		4DBCCD7718299B5A006C7619 /* SelectUserControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectUserControllerDelegate.h; sourceTree = "<group>"; };
 		824A9DD51724E16400C9BD79 /* Checkin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Checkin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		824A9DD81724E16400C9BD79 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		824A9DDA1724E16400C9BD79 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -379,6 +397,12 @@
 				4DBCCD6A1825707F006C7619 /* chatterPin@2x.png */,
 				4DBCCD6D18286CAC006C7619 /* basic_blue_background.png */,
 				4DBCCD6E18286CAC006C7619 /* basic_blue_background@2x.png */,
+				4D32CAF6182B585E00B73A14 /* tab_pin.png */,
+				4D32CAF7182B585E00B73A14 /* tab_pin@2x.png */,
+				4D32CAFA182B5D9F00B73A14 /* tab_thoughtBubble.png */,
+				4D32CAFB182B5D9F00B73A14 /* tab_thoughtBubble@2x.png */,
+				4D32CAFC182B5D9F00B73A14 /* tab_wordBubble.png */,
+				4D32CAFD182B5D9F00B73A14 /* tab_wordBubble@2x.png */,
 			);
 			name = images;
 			sourceTree = "<group>";
@@ -842,6 +866,9 @@
 				B0838DFA1822F16700AB0387 /* CheckinViewController.h */,
 				B0838DFB1822F16700AB0387 /* CheckinViewController.m */,
 				B0838DFC1822F16700AB0387 /* CheckinViewController.xib */,
+				4DBCCD7118286E6D006C7619 /* Checkin2ViewController.h */,
+				4DBCCD7218286E6D006C7619 /* Checkin2ViewController.m */,
+				4DBCCD7318286E6D006C7619 /* Checkin2ViewController.xib */,
 			);
 			path = Checkin;
 			sourceTree = "<group>";
@@ -892,6 +919,7 @@
 		B0838E101822F16700AB0387 /* Select Users */ = {
 			isa = PBXGroup;
 			children = (
+				4DBCCD7718299B5A006C7619 /* SelectUserControllerDelegate.h */,
 				B0359D8F1826E95C00889929 /* Old SelectUserViewController */,
 				B0838E3F1824026F00AB0387 /* Cells */,
 				B0838E111822F16700AB0387 /* SelectUserViewController.h */,
@@ -1000,21 +1028,24 @@
 				4DBCCD7018286CAC006C7619 /* basic_blue_background@2x.png in Resources */,
 				4D83E74E18246B850022959B /* Icon-152x152.png in Resources */,
 				4DBCCD6B1825707F006C7619 /* chatterPin.png in Resources */,
+				4D32CAFF182B5D9F00B73A14 /* tab_thoughtBubble@2x.png in Resources */,
 				824A9E3D1724E9F400C9BD79 /* readme.txt in Resources */,
 				4D83E74A18246B850022959B /* Icon-72@2x.png in Resources */,
+				4D32CAF8182B585E00B73A14 /* tab_pin.png in Resources */,
 				B0838E221822F16700AB0387 /* InitialViewController.xib in Resources */,
 				4D83E74F18246B850022959B /* Icon-Small-50.png in Resources */,
 				4D83E74818246B850022959B /* Icon-40x40.png in Resources */,
 				824A9E3F1724EC6300C9BD79 /* Settings.bundle in Resources */,
 				B0838E201822F16700AB0387 /* FeedTableViewController.xib in Resources */,
+				4D32CAFE182B5D9F00B73A14 /* tab_thoughtBubble.png in Resources */,
 				B0838E241822F16700AB0387 /* LoadingViewController.xib in Resources */,
 				4D83E75118246B850022959B /* Icon-Small.png in Resources */,
+				4D32CB00182B5D9F00B73A14 /* tab_wordBubble.png in Resources */,
 				824A9E411724ECC600C9BD79 /* SalesforceSDKResources.bundle in Resources */,
 				B0838E1E1822F16700AB0387 /* FeedTableViewCell.xib in Resources */,
-				824A9E601724F02D00C9BD79 /* icon-72@2x.png in Resources */,
-				824A9E611724F02D00C9BD79 /* icon.png in Resources */,
+				4DBCCD7518286E6D006C7619 /* Checkin2ViewController.xib in Resources */,
 				B0359D941826E95C00889929 /* SelectUserViewControllerOrig.xib in Resources */,
-				824A9E621724F02D00C9BD79 /* icon@2x.png in Resources */,
+				4D32CAF9182B585E00B73A14 /* tab_pin@2x.png in Resources */,
 				4D83E75218246B850022959B /* Icon-Small@2x.png in Resources */,
 				4D83E75818246BAD0022959B /* iTunesArtwork@2x in Resources */,
 				4D83E74918246B850022959B /* Icon-72.png in Resources */,
@@ -1028,6 +1059,7 @@
 				824A9E6D1724F03D00C9BD79 /* Default-Portrait@2x~ipad.png in Resources */,
 				4DBCCD6F18286CAC006C7619 /* basic_blue_background.png in Resources */,
 				4D83E75018246B850022959B /* Icon-Small-50@2x.png in Resources */,
+				4D32CB01182B5D9F00B73A14 /* tab_wordBubble@2x.png in Resources */,
 				B0838E1C1822F16700AB0387 /* CheckinViewController.xib in Resources */,
 				4DBCCD6C1825707F006C7619 /* chatterPin@2x.png in Resources */,
 				824A9E6E1724F03D00C9BD79 /* Default-Portrait~ipad.png in Resources */,
@@ -1056,6 +1088,7 @@
 				B0838E1F1822F16700AB0387 /* FeedTableViewController.m in Sources */,
 				824A9DE51724E16400C9BD79 /* main.m in Sources */,
 				4DBCCD681824C7BD006C7619 /* ChatterPinAnnotationView.m in Sources */,
+				4DBCCD7418286E6D006C7619 /* Checkin2ViewController.m in Sources */,
 				B0838E1D1822F16700AB0387 /* FeedTableViewCell.m in Sources */,
 				B0359D931826E95C00889929 /* SelectUserViewControllerOrig.m in Sources */,
 				B0838E251822F16700AB0387 /* MapViewController.m in Sources */,
