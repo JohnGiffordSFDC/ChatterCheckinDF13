@@ -12,17 +12,28 @@
 
 @interface SelectUserViewControllerOrig ()
 
+@property (nonatomic, retain) NSMutableArray *selectedUsersInfo;
+
 @end
 
 @implementation SelectUserViewControllerOrig
 
 @synthesize selectedUsers = _selectedUsers;
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        [self setSelectedUsersInfo: [NSMutableArray array]];
+    }
+    return self;
+}
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        [self setSelectedUsersInfo: [NSMutableArray array]];
     }
     return self;
 }
@@ -30,6 +41,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target: self action: @selector(cancel:)];
+    [self.navigationItem setLeftBarButtonItem: cancelButton];
+    
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle: @"Done" style: UIBarButtonItemStyleBordered target: self action: @selector(done:)];
+    [self.navigationItem setRightBarButtonItem: doneButton];
 	
 	if(!_selectedUsers) _selectedUsers = [[NSMutableArray alloc] init];
 	
@@ -46,6 +63,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Tracking Selected Users
+
 - (void)getUsers
 {
 	SFRestRequest* request = [[SFRestAPI sharedInstance] requestForResources];
@@ -55,6 +74,64 @@
     request.path = pathString;
     
     [[SFRestAPI sharedInstance] send:request delegate:self];
+}
+
+- (void) setSelectedUsers:(NSArray *)selectedUsers {
+    
+    NSMutableArray *userIdentifiers = [[NSMutableArray alloc] init];
+    for (User *user in selectedUsers)
+        [userIdentifiers addObject: user.userId];
+    
+    _selectedUsers = userIdentifiers;
+    
+    if (selectedUsers)
+        _selectedUsersInfo = [[NSMutableArray alloc] initWithArray: selectedUsers];
+    
+}
+
+- (BOOL) isUserSelected: (User *) user {
+    
+    return [_selectedUsers containsObject: user.userId];
+}
+
+- (void) selectUser: (User *) user {
+    
+    if (![_selectedUsers containsObject: user.userId]) {
+        [_selectedUsers addObject: user.userId];
+        [_selectedUsersInfo addObject: user];
+    }
+}
+
+- (void) deselectUser: (User *) user {
+    
+    NSUInteger index = [_selectedUsers indexOfObject: user.userId];
+    
+    [_selectedUsers removeObject: user.userId];
+    [_selectedUsersInfo removeObjectAtIndex: index];
+}
+
+- (void) toggleSelectionForUser: (User *) user {
+    
+    if ([self isUserSelected: user])
+        [self deselectUser: user];
+    else
+        [self selectUser: user];
+    
+}
+
+#pragma mark - Actions
+
+- (IBAction) cancel: (id) sender {
+    
+    [self.navigationController popViewControllerAnimated: YES];
+}
+
+- (IBAction) done: (id) sender {
+    
+    if (self.delegate)
+        [self.delegate viewController: self didSelectUsers: self.selectedUsers];
+    
+    [self.navigationController popViewControllerAnimated: YES];
 }
 
 #pragma mark - SFRestAPIDelegate
@@ -144,7 +221,7 @@
     
     User * user = [_dataRows objectAtIndex:indexPath.row];
     
-    if ([_selectedUsers containsObject:user.userId]) {
+    if ([self isUserSelected: user]) {
         [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
     } else {
         [cell setAccessoryType:UITableViewCellAccessoryNone];
@@ -161,12 +238,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     User * user = [_dataRows objectAtIndex:indexPath.row];
-    
-    if ([_selectedUsers containsObject:user.userId]) {
-        [_selectedUsers removeObject:user.userId];
-    } else {
-        [_selectedUsers addObject:user.userId];
-    }
+    [self toggleSelectionForUser: user];
     
     [self.tableView reloadData];
 }

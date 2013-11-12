@@ -7,7 +7,8 @@
 //
 
 #import "MapViewController.h"
-#import "CheckinViewController.h"
+//#import "CheckinViewController.h"
+#import "Checkin2ViewController.h"
 #import "SFAuthenticationManager.h"
 #import "AppDelegate.h"
 #import "Annotation.h"
@@ -56,7 +57,7 @@
                                      target:nil
                                      action:nil];
     
-    UIBarButtonItem *checkinBtn = [[UIBarButtonItem alloc]initWithTitle:@"Checkin" style:UIBarButtonItemStyleBordered target:self action:@selector(performCoordinateGeocode:)];
+    UIBarButtonItem *checkinBtn = [[UIBarButtonItem alloc]initWithTitle:@"Check-in" style:UIBarButtonItemStyleBordered target:self action:@selector(performCoordinateGeocode:)];
     [self.navigationItem setRightBarButtonItem:checkinBtn];
     
     UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc]initWithTitle:@"Logout" style:UIBarButtonItemStyleBordered target:self action:@selector(logout)];
@@ -158,9 +159,24 @@
 
 - (void)displayCheckin:(NSArray *)placemarks
 {
-    CheckinViewController *cvc = [[CheckinViewController alloc] initWithNibName:@"CheckinViewController" bundle:nil];
+//    CheckinViewController *cvc = [[CheckinViewController alloc] initWithNibName:@"CheckinViewController" bundle:nil];
+//    
+//    [cvc setPlacemarks:placemarks];
     
-    [cvc setPlacemarks:placemarks];
+    
+    NSString *locationStr = nil;
+    if ([placemarks count] > 0) {
+        CLPlacemark *placemark = (CLPlacemark *)[placemarks objectAtIndex:0];
+        NSString *cityString = [placemark.addressDictionary objectForKey:@"City"];
+        NSString *stateString = [placemark.addressDictionary objectForKey:@"State"];
+        locationStr = [NSString stringWithFormat:@"%@, %@", cityString, stateString];
+    } else {
+        locationStr = @"Location Not Found";
+    }
+    
+    
+    Checkin2ViewController *cvc = [[Checkin2ViewController alloc] initWithNibName: @"Checkin2ViewController" bundle: nil];
+    [cvc setLocation: locationStr];
     
     [self.navigationController pushViewController:cvc animated:YES];
 }
