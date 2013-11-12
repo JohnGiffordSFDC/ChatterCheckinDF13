@@ -77,24 +77,6 @@
     }
 }
 
-- (NSMutableArray *)processUsers:(id)jsonResponse {
-    NSArray *records = [jsonResponse objectForKey:@"users"];
-    
-	NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"fullName" ascending:YES];
-    for (NSDictionary *user in [records sortedArrayUsingDescriptors:@[sortDescriptor]]) {
-        
-        User *newUser = [[User alloc] init];
-        newUser.fullName = [user objectForKey:@"name"];
-        newUser.userId = [user objectForKey:@"id"];
-        
-        [_dataRows addObject:newUser];
-	}
-	
-	return _dataRows;
-}
-
-
-
 - (void)request:(SFRestRequest*)request didFailLoadWithError:(NSError*)error {
     NSLog(@"request:didFailLoadWithError: %@", error);
     //add your failed error handling here
@@ -118,6 +100,24 @@
     NSLog(@"user: %@",user);
     
     return user;
+}
+
+#pragma mark - Parsing
+
+- (NSMutableArray *)processUsers:(id)jsonResponse {
+    NSArray *records = [jsonResponse objectForKey:@"users"];
+    
+	NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"fullName" ascending:YES];
+    for (NSDictionary *user in [records sortedArrayUsingDescriptors:@[sortDescriptor]]) {
+        
+        User *newUser = [[User alloc] init];
+        newUser.fullName = [user objectForKey:@"name"];
+        newUser.userId = [user objectForKey:@"id"];
+        
+        [_dataRows addObject:newUser];
+	}
+	
+	return _dataRows;
 }
 
 
@@ -177,7 +177,7 @@
 	
 	SFRestRequest* request = [[SFRestAPI sharedInstance] requestForResources];
     
-    NSString *pathString = [NSString stringWithFormat:@"%@/chatter/users?q=%@&pageSize=20",request.path,searchString];
+    NSString *pathString = [NSString stringWithFormat:@"%@/chatter/users?q=%@&pageSize=50",request.path,searchString];
     
     request.path = pathString;
     

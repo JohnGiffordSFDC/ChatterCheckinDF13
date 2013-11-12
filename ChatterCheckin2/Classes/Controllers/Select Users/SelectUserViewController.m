@@ -69,22 +69,6 @@
 	[[SFRestAPI sharedInstance] send:request delegate:self];
 }
 
-- (void)processJson:(id)json {
-	_nextPageURL = [json objectForKey:@"nextPageUrl"];
-	
-	int lastCount = _dataRows.count;
-	
-	// Process the new data
-	_dataRows = [self processUsers:json];
-	
-	// Update the table
-	[self updateTable:self.tableView
-			 withData:_dataRows
-	   sinceLastCount:lastCount];
-	
-	_reloading = NO;
-}
-
 #pragma mark - Loading Cell Updates
 
 // Add loading cell at the last position in the table
@@ -152,24 +136,6 @@
 	[table endUpdates];
 }
 
-#pragma mark - Response Parsing
-
-- (NSMutableArray *)processUsers:(id)jsonResponse {
-    NSArray *records = [jsonResponse objectForKey:@"users"];
-    
-	NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"fullName" ascending:YES];
-    for (NSDictionary *user in [records sortedArrayUsingDescriptors:@[sortDescriptor]]) {
-        
-        User *newUser = [[User alloc] init];
-        newUser.fullName = [user objectForKey:@"name"];
-        newUser.userId = [user objectForKey:@"id"];
-        
-        [_dataRows addObject:newUser];
-	}
-	
-	return _dataRows;
-}
-
 
 #pragma mark - SFRestAPIDelegate
 
@@ -177,6 +143,7 @@
     
 	// Grab URL to next page of records
 	_nextPageURL = [jsonResponse objectForKey:@"nextPageUrl"];
+	
     NSLog(@"Got Response: %@",jsonResponse);
 	int lastCount = _dataRows.count;
 	
@@ -216,6 +183,26 @@
     
     return user;
 }
+
+
+#pragma mark - Response Parsing
+
+- (NSMutableArray *)processUsers:(id)jsonResponse {
+    NSArray *records = [jsonResponse objectForKey:@"users"];
+    
+	NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"fullName" ascending:YES];
+    for (NSDictionary *user in [records sortedArrayUsingDescriptors:@[sortDescriptor]]) {
+        
+        User *newUser = [[User alloc] init];
+        newUser.fullName = [user objectForKey:@"name"];
+        newUser.userId = [user objectForKey:@"id"];
+        
+        [_dataRows addObject:newUser];
+	}
+	
+	return _dataRows;
+}
+
 
 #pragma mark - Table view data source
 
@@ -287,7 +274,7 @@
 	
 	SFRestRequest* request = [[SFRestAPI sharedInstance] requestForResources];
     
-    NSString *pathString = [NSString stringWithFormat:@"%@/chatter/users?q=%@&pageSize=20",request.path,searchString];
+    NSString *pathString = [NSString stringWithFormat:@"%@/chatter/users?q=%@&pageSize=50",request.path,searchString];
     
     request.path = pathString;
     
