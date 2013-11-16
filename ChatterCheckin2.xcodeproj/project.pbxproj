@@ -76,8 +76,6 @@
 		B0359D941826E95C00889929 /* SelectUserViewControllerOrig.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0359D921826E95C00889929 /* SelectUserViewControllerOrig.xib */; };
 		B0838DF51822EF2700AB0387 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0838DF41822EF2700AB0387 /* MapKit.framework */; };
 		B0838DF71822EF5D00AB0387 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0838DF61822EF5D00AB0387 /* CoreLocation.framework */; };
-		B0838E1B1822F16700AB0387 /* CheckinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0838DFB1822F16700AB0387 /* CheckinViewController.m */; };
-		B0838E1C1822F16700AB0387 /* CheckinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0838DFC1822F16700AB0387 /* CheckinViewController.xib */; };
 		B0838E1D1822F16700AB0387 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0838DFF1822F16700AB0387 /* FeedTableViewCell.m */; };
 		B0838E1E1822F16700AB0387 /* FeedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0838E001822F16700AB0387 /* FeedTableViewCell.xib */; };
 		B0838E1F1822F16700AB0387 /* FeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0838E021822F16700AB0387 /* FeedTableViewController.m */; };
@@ -326,9 +324,6 @@
 		B0359D921826E95C00889929 /* SelectUserViewControllerOrig.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectUserViewControllerOrig.xib; sourceTree = "<group>"; };
 		B0838DF41822EF2700AB0387 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		B0838DF61822EF5D00AB0387 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		B0838DFA1822F16700AB0387 /* CheckinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinViewController.h; sourceTree = "<group>"; };
-		B0838DFB1822F16700AB0387 /* CheckinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinViewController.m; sourceTree = "<group>"; };
-		B0838DFC1822F16700AB0387 /* CheckinViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckinViewController.xib; sourceTree = "<group>"; };
 		B0838DFE1822F16700AB0387 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCell.h; sourceTree = "<group>"; };
 		B0838DFF1822F16700AB0387 /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewCell.m; sourceTree = "<group>"; };
 		B0838E001822F16700AB0387 /* FeedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedTableViewCell.xib; sourceTree = "<group>"; };
@@ -871,9 +866,6 @@
 		B0838DF91822F16700AB0387 /* Checkin */ = {
 			isa = PBXGroup;
 			children = (
-				B0838DFA1822F16700AB0387 /* CheckinViewController.h */,
-				B0838DFB1822F16700AB0387 /* CheckinViewController.m */,
-				B0838DFC1822F16700AB0387 /* CheckinViewController.xib */,
 				4DBCCD7118286E6D006C7619 /* Checkin2ViewController.h */,
 				4DBCCD7218286E6D006C7619 /* Checkin2ViewController.m */,
 				4DBCCD7318286E6D006C7619 /* Checkin2ViewController.xib */,
@@ -1070,7 +1062,6 @@
 				4DBCCD6F18286CAC006C7619 /* basic_blue_background.png in Resources */,
 				4D83E75018246B850022959B /* Icon-Small-50@2x.png in Resources */,
 				4D32CB01182B5D9F00B73A14 /* tab_wordBubble@2x.png in Resources */,
-				B0838E1C1822F16700AB0387 /* CheckinViewController.xib in Resources */,
 				4DBCCD6C1825707F006C7619 /* chatterPin@2x.png in Resources */,
 				824A9E6E1724F03D00C9BD79 /* Default-Portrait~ipad.png in Resources */,
 				B0838E341822F4B700AB0387 /* feed_icon@2x.png in Resources */,
@@ -1110,7 +1101,6 @@
 				B0838E211822F16700AB0387 /* InitialViewController.m in Sources */,
 				B0838E3A1822F50900AB0387 /* Annotation.m in Sources */,
 				B0838E3B1822F50900AB0387 /* User.m in Sources */,
-				B0838E1B1822F16700AB0387 /* CheckinViewController.m in Sources */,
 				824A9E331724E2A900C9BD79 /* AppDelegate.m in Sources */,
 				B0838E271822F16700AB0387 /* SelectUserViewController.m in Sources */,
 			);

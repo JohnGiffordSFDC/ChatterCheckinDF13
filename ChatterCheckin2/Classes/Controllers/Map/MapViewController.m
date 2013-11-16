@@ -7,7 +7,6 @@
 //
 
 #import "MapViewController.h"
-//#import "CheckinViewController.h"
 #import "Checkin2ViewController.h"
 #import "SFAuthenticationManager.h"
 #import "AppDelegate.h"
@@ -197,11 +196,6 @@
 
 - (void)displayCheckin:(NSArray *)placemarks
 {
-//    CheckinViewController *cvc = [[CheckinViewController alloc] initWithNibName:@"CheckinViewController" bundle:nil];
-//    
-//    [cvc setPlacemarks:placemarks];
-    
-    
     NSString *locationStr = nil;
     if ([placemarks count] > 0) {
         CLPlacemark *placemark = (CLPlacemark *)[placemarks objectAtIndex:0];
