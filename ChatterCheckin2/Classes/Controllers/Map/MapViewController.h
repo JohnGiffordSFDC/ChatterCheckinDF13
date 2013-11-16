@@ -27,6 +27,7 @@
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *checkinButton;
 
 - (IBAction)performCoordinateGeocode:(id)sender;
+- (void) showCheckinWithTitle: (NSAttributedString *) title;
 
 @end
 

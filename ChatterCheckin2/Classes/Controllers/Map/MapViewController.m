@@ -13,6 +13,18 @@
 #import "AppDelegate.h"
 #import "Annotation.h"
 #import "ChatterPinAnnotationView.h"
+#import "CloudCalloutView.h"
+
+
+
+@interface MapViewController ()
+
+@property (nonatomic) BOOL shouldShowCloudCallout;
+@property (nonatomic, strong) ChatterPinAnnotationView *userLocationAnnotationView;
+
+@end
+
+
 
 @implementation MapViewController
 
@@ -35,13 +47,27 @@
     
     [self setupNavbar];
     [self setupTabBar];
-
 }
 
 - (void)viewDidUnload
 {
     _mapView = nil;
     _checkinButton = nil;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear: animated];
+    
+    if (self.shouldShowCloudCallout) {
+        
+        [self setShouldShowCloudCallout: NO];
+        
+        if (self.mapView.userLocation && self.mapView.userLocationVisible) {
+            id <MKAnnotation> annotation = self.mapView.userLocation;
+            [self.mapView selectAnnotation: annotation animated: YES];
+        }
+    }
 }
 
 - (void)dealloc
@@ -92,6 +118,14 @@
     }];
 }
 
+- (void) showCheckinWithTitle: (NSAttributedString *) title {
+    
+    [self.mapView deselectAnnotation: self.mapView.userLocation animated: NO];
+    [self.userLocationAnnotationView setCheckedIn: YES];
+    [self.userLocationAnnotationView setTitle: title];
+    [self setShouldShowCloudCallout: YES];
+}
+
 #pragma mark - MKMapViewDelegate messages
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
@@ -101,9 +135,13 @@
     static NSString *ChatterPinAnnotationIdentifier = @"ChatterPinAnnotationViewIdentifier";
     
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
-        annotationView = (ChatterPinAnnotationView *) [mapView dequeueReusableAnnotationViewWithIdentifier: ChatterPinAnnotationIdentifier];
-        if (!annotationView) {
-            annotationView = [[ChatterPinAnnotationView alloc] initWithAnnotation: annotation reuseIdentifier: ChatterPinAnnotationIdentifier];
+        if (!self.userLocationAnnotationView) {
+            ChatterPinAnnotationView *checkinAnnotationView = [[ChatterPinAnnotationView alloc] initWithAnnotation: annotation reuseIdentifier: ChatterPinAnnotationIdentifier];
+            [self setUserLocationAnnotationView: checkinAnnotationView];
+            annotationView = checkinAnnotationView;
+        }
+        else {
+            annotationView = self.userLocationAnnotationView;
         }
     }
     else {
@@ -176,6 +214,7 @@
     
     
     Checkin2ViewController *cvc = [[Checkin2ViewController alloc] initWithNibName: @"Checkin2ViewController" bundle: nil];
+    [cvc setMapViewController: self];
     [cvc setLocation: locationStr];
     
     [self.navigationController pushViewController:cvc animated:YES];

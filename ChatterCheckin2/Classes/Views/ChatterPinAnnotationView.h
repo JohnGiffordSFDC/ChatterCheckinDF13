@@ -12,4 +12,7 @@
 
 @interface ChatterPinAnnotationView : MKAnnotationView
 
+@property (nonatomic, strong) NSAttributedString *title;
+@property (nonatomic, assign, getter = isCheckedIn) BOOL checkedIn;
+
 @end

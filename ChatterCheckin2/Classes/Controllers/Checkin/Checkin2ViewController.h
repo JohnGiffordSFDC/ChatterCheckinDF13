@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SFRestAPI.h"
 #import "SelectUserControllerDelegate.h"
+#import "MapViewController.h"
 
 
 
@@ -25,5 +26,6 @@
 @property (strong, nonatomic) IBOutlet UITableViewCell *coworkerCell;
 @property (weak, nonatomic) IBOutlet UILabel *coworkerPlaceholderLabel;
 @property (weak, nonatomic) IBOutlet UILabel *coworkerListLabel;
+@property (weak, nonatomic) MapViewController *mapViewController;
 
 @end

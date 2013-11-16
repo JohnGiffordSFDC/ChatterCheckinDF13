@@ -7,6 +7,7 @@
 //
 
 #import "Checkin2ViewController.h"
+#import "CloudCalloutView.h"
 #import "LoadingViewController.h"
 #import "SelectUserViewControllerOrig.h"
 #import "SelectUserViewController.h"
@@ -23,7 +24,6 @@ static NSUInteger    COWORKER_ROW_INDEX     = 2;
 static CGFloat       STATUS_TEXTVIEW_VERTICAL_MARGIN    = 0;
 
 static NSInteger     ERROR_ALERT_VIEW_TAG               = 111;
-static NSInteger     SUCCESSFUL_POST_ALERT_VIEW_TAG     = 123;
 
 
 
@@ -116,6 +116,106 @@ static NSInteger     SUCCESSFUL_POST_ALERT_VIEW_TAG     = 123;
 
 
 #pragma mark -
+
+
+/**
+ *
+ */
+- (NSAttributedString *) buildCalloutTitle {
+    
+    UIFont          *boldFont   = [UIFont boldSystemFontOfSize: [CloudCalloutView calloutFontSize]];
+    NSMutableArray  *boldRanges = [NSMutableArray array];
+    CGFloat          maxHeight  = boldFont.lineHeight * [CloudCalloutView calloutTitleMaxNumberOfLines];
+    NSMutableString *title      = [NSMutableString stringWithString: @"Me"];
+    int              index      = 0;
+    
+    [boldRanges addObject: [NSValue valueWithRange: NSMakeRange(index, title.length - index)]];
+    index += title.length;
+    
+    if (self.selectedUsers.count == 1) {
+        
+        User *user = [self.selectedUsers objectAtIndex: 0];
+        NSString *string = [NSString stringWithFormat: @"%@ and %@", title, user.fullName];
+        
+        CGRect frame = [string boundingRectWithSize: CGSizeMake([CloudCalloutView calloutTitleLabelWidth], 1000)
+                                            options: NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                         attributes: @{NSFontAttributeName : boldFont}
+                                            context: nil];
+        
+        if (frame.size.height > maxHeight) {
+            
+            NSString *other = @"1 other";
+            [title appendString: @" and "];
+            index = title.length;
+            [title appendString: other];
+            [boldRanges addObject: [NSValue valueWithRange: NSMakeRange(index, other.length)]];
+        }
+        else {
+            
+            [title appendString: @" and "];
+            index = title.length;
+            [title appendString: user.fullName];
+            [boldRanges addObject: [NSValue valueWithRange: NSMakeRange(index, user.fullName.length)]];
+        }
+    }
+    else if (self.selectedUsers.count > 1) {
+        
+        for (int i = 0; i < self.selectedUsers.count; i++) {
+            
+            NSMutableString *string = [NSMutableString stringWithString: title];
+            NSRange range = NSMakeRange(NSNotFound, 0);
+            NSString *otherStr = nil;
+            
+            for (int j = 0; j <= i; j++) {
+                
+                if (j < (self.selectedUsers.count - 1))
+                    [string appendString: @", "];
+                else if (j > 0 && j == self.selectedUsers.count - 1)
+                    [string appendString: @" and "];
+                
+                User *user = [self.selectedUsers objectAtIndex: j];
+                range = NSMakeRange(string.length, user.fullName.length);
+                [string appendString: user.fullName];
+            }
+            
+            if (i < (self.selectedUsers.count - 1))
+                otherStr = [NSString stringWithFormat: @" and %d %@", (self.selectedUsers.count - (i + 1)), (i == self.selectedUsers.count - 2 ? @"other" : @"others")];
+            
+            if (otherStr)
+                [string appendString: otherStr];
+            
+            CGRect frame = [string boundingRectWithSize: CGSizeMake([CloudCalloutView calloutTitleLabelWidth], 1000)
+                                                options: NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                             attributes: @{NSFontAttributeName : boldFont}
+                                                context: nil];
+            
+            if (frame.size.height > maxHeight) {
+                
+                break;
+            }
+            else {
+                
+                title = [NSMutableString stringWithString: string];
+                
+                if (boldRanges.count > 1)
+                    [boldRanges removeLastObject];      //  Remove the last range added for the previous otherStr.
+                
+                [boldRanges addObject: [NSValue valueWithRange: range]];
+                
+                if (otherStr)
+                    [boldRanges addObject: [NSValue valueWithRange: NSMakeRange(string.length - otherStr.length + @" and ".length, otherStr.length - @" and ".length)]];
+                
+            }
+        }
+    }
+    
+    
+    NSMutableAttributedString *listOfPeople = [[NSMutableAttributedString alloc] initWithString: title];
+    for (NSValue *range in boldRanges)
+        [listOfPeople addAttribute: NSFontAttributeName value: boldFont range: range.rangeValue];
+    
+    return listOfPeople;
+}
 
 
 /**
@@ -337,8 +437,6 @@ static NSInteger     SUCCESSFUL_POST_ALERT_VIEW_TAG     = 123;
     
     if (alertView.tag == ERROR_ALERT_VIEW_TAG)
         [self.statusTextView becomeFirstResponder];
-    else if (alertView.tag == SUCCESSFUL_POST_ALERT_VIEW_TAG)
-        [self.navigationController popViewControllerAnimated: YES];
     
 }
 
@@ -490,13 +588,8 @@ static NSInteger     SUCCESSFUL_POST_ALERT_VIEW_TAG     = 123;
     
     [[LoadingViewController sharedController] removeLoadingView];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Success"
-                                                    message: @"Status posted successfully!"
-                                                   delegate: self
-                                          cancelButtonTitle: @"OK"
-                                          otherButtonTitles: nil];
-    [alert setTag: SUCCESSFUL_POST_ALERT_VIEW_TAG];
-    [alert show];
+    [self.mapViewController showCheckinWithTitle: [self buildCalloutTitle]];
+    [self.navigationController popViewControllerAnimated: YES];
 }
 
 

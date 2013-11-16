@@ -35,6 +35,8 @@
 		4DBCCD7018286CAC006C7619 /* basic_blue_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCD6E18286CAC006C7619 /* basic_blue_background@2x.png */; };
 		4DBCCD7418286E6D006C7619 /* Checkin2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBCCD7218286E6D006C7619 /* Checkin2ViewController.m */; };
 		4DBCCD7518286E6D006C7619 /* Checkin2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCD7318286E6D006C7619 /* Checkin2ViewController.xib */; };
+		4DD6261618365B47002D77D1 /* CloudCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6261518365B47002D77D1 /* CloudCalloutView.m */; };
+		4DD6261918365B65002D77D1 /* CAAnimation+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6261818365B65002D77D1 /* CAAnimation+Blocks.m */; };
 		824A9DD91724E16400C9BD79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824A9DD81724E16400C9BD79 /* UIKit.framework */; };
 		824A9DDB1724E16400C9BD79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824A9DDA1724E16400C9BD79 /* Foundation.framework */; };
 		824A9DDD1724E16400C9BD79 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824A9DDC1724E16400C9BD79 /* CoreGraphics.framework */; };
@@ -131,6 +133,10 @@
 		4DBCCD7218286E6D006C7619 /* Checkin2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Checkin2ViewController.m; sourceTree = "<group>"; };
 		4DBCCD7318286E6D006C7619 /* Checkin2ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Checkin2ViewController.xib; sourceTree = "<group>"; };
 		4DBCCD7718299B5A006C7619 /* SelectUserControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectUserControllerDelegate.h; sourceTree = "<group>"; };
+		4DD6261418365B47002D77D1 /* CloudCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CloudCalloutView.h; path = Views/CloudCalloutView.h; sourceTree = "<group>"; };
+		4DD6261518365B47002D77D1 /* CloudCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CloudCalloutView.m; path = Views/CloudCalloutView.m; sourceTree = "<group>"; };
+		4DD6261718365B65002D77D1 /* CAAnimation+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAAnimation+Blocks.h"; sourceTree = "<group>"; };
+		4DD6261818365B65002D77D1 /* CAAnimation+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAAnimation+Blocks.m"; sourceTree = "<group>"; };
 		824A9DD51724E16400C9BD79 /* Checkin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Checkin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		824A9DD81724E16400C9BD79 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		824A9DDA1724E16400C9BD79 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -410,6 +416,8 @@
 		4DBCCD651824C757006C7619 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4DD6261418365B47002D77D1 /* CloudCalloutView.h */,
+				4DD6261518365B47002D77D1 /* CloudCalloutView.m */,
 				4DBCCD661824C7BD006C7619 /* ChatterPinAnnotationView.h */,
 				4DBCCD671824C7BD006C7619 /* ChatterPinAnnotationView.m */,
 			);
@@ -932,6 +940,8 @@
 		B0838E141822F16700AB0387 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				4DD6261718365B65002D77D1 /* CAAnimation+Blocks.h */,
+				4DD6261818365B65002D77D1 /* CAAnimation+Blocks.m */,
 				B0838E151822F16700AB0387 /* NSString+JSON.h */,
 				B0838E161822F16700AB0387 /* NSString+JSON.m */,
 			);
@@ -1087,10 +1097,12 @@
 				B0838E451824050000AB0387 /* PlaceholderRow.m in Sources */,
 				B0838E1F1822F16700AB0387 /* FeedTableViewController.m in Sources */,
 				824A9DE51724E16400C9BD79 /* main.m in Sources */,
+				4DD6261618365B47002D77D1 /* CloudCalloutView.m in Sources */,
 				4DBCCD681824C7BD006C7619 /* ChatterPinAnnotationView.m in Sources */,
 				4DBCCD7418286E6D006C7619 /* Checkin2ViewController.m in Sources */,
 				B0838E1D1822F16700AB0387 /* FeedTableViewCell.m in Sources */,
 				B0359D931826E95C00889929 /* SelectUserViewControllerOrig.m in Sources */,
+				4DD6261918365B65002D77D1 /* CAAnimation+Blocks.m in Sources */,
 				B0838E251822F16700AB0387 /* MapViewController.m in Sources */,
 				B0838E231822F16700AB0387 /* LoadingViewController.m in Sources */,
 				B0838E291822F16700AB0387 /* NSString+JSON.m in Sources */,
