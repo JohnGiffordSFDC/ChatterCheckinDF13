@@ -26,7 +26,6 @@ static CGRect   TITLE_LABEL_FRAME           = {{27.0, 32.0}, {135.0, 61.0}};
 
 @property (nonatomic, strong) NSMutableArray *outlineLayers;        //  blue circles that make up the outlines around the cloud
 @property (nonatomic, strong) NSMutableArray *circleLayers;         //  white circles around perimeter of the cloud
-@property (nonatomic, strong) NSMutableArray *cloudFillLayers;      //  white circles to cover gaps in the middle of the cloud
 @property (nonatomic, strong) UILabel *titleLabel;
 
 @end
@@ -85,7 +84,6 @@ static CGRect   TITLE_LABEL_FRAME           = {{27.0, 32.0}, {135.0, 61.0}};
         
         [self setOutlineLayers: [NSMutableArray array]];
         [self setCircleLayers: [NSMutableArray array]];
-        [self setCloudFillLayers: [NSMutableArray array]];
         
         [self setHidden: YES];
         [self buildCloud];
@@ -118,9 +116,11 @@ static CGRect   TITLE_LABEL_FRAME           = {{27.0, 32.0}, {135.0, 61.0}};
                              [NSValue valueWithCGPoint: CGPointMake(111.0, 82.0)],
                              [NSValue valueWithCGPoint: CGPointMake( 68.0, 95.0)],
                              [NSValue valueWithCGPoint: CGPointMake( 32.0, 76.0)],
+                             [NSValue valueWithCGPoint: CGPointMake( 72.0, 65.0)],
+                             [NSValue valueWithCGPoint: CGPointMake(110.0, 58.0)],
                              nil];
     
-    NSArray *radii = @[@(32.5), @(29.0), @(36.0), @(26.5), @(29.5), @(28.0)];
+    NSArray *radii = @[@(32.5), @(29.0), @(36.0), @(26.5), @(29.5), @(28.0), @36.0, @24.0];
     
     UIColor *blueColor = [UIColor colorWithRed: (100.0 / 255.0) green: (178.0 / 255.0) blue: (217.0 / 255.0) alpha: 1];
     
@@ -152,34 +152,6 @@ static CGRect   TITLE_LABEL_FRAME           = {{27.0, 32.0}, {135.0, 61.0}};
         [self.layer addSublayer: layer];
     
     for (CALayer *layer in self.circleLayers)
-        [self.layer addSublayer: layer];
-    
-    
-    //  Build inner fill shapes
-    
-    centerPoints = [NSArray arrayWithObjects:
-                    [NSValue valueWithCGPoint: CGPointMake( 72.0, 65.0)],
-                    [NSValue valueWithCGPoint: CGPointMake(110.0, 58.0)],
-                    nil];
-    
-    radii = @[@36.0, @24.0];
-    
-    for (int i = 0; i < centerPoints.count; i++) {
-        
-        CGPoint center = ((NSValue *) [centerPoints objectAtIndex: i]).CGPointValue;
-        CGFloat radius = ((NSNumber *) [radii objectAtIndex: i]).floatValue;
-        CGRect  rect   = CGRectMake(center.x - radius, center.y - radius, radius * 2.0, radius * 2.0);
-        
-        CAShapeLayer *circle = [CAShapeLayer layer];
-        [circle setBounds: self.bounds];
-        [circle setPath: [UIBezierPath bezierPathWithOvalInRect: rect].CGPath];
-        [circle setPosition: CLOUD_ANIMATION_ORIGIN];
-        [circle setFillColor: [UIColor whiteColor].CGColor];
-        [circle setAnchorPoint: CGPointMake(0.5, 0.9375)];
-        [self.cloudFillLayers addObject: circle];
-    }
-    
-    for (CALayer *layer in self.cloudFillLayers)
         [self.layer addSublayer: layer];
     
     
@@ -240,19 +212,6 @@ static CGRect   TITLE_LABEL_FRAME           = {{27.0, 32.0}, {135.0, 61.0}};
         
         CAShapeLayer *outline = [self.outlineLayers objectAtIndex: i];
         [outline addAnimation: bounceAnimation forKey: animationKey];
-    }
-    
-    for (int i = 0; i < self.cloudFillLayers.count; i++) {
-        
-        CAKeyframeAnimation *bounceAnimation = [CAKeyframeAnimation animationWithKeyPath: @"transform.scale"];
-        [bounceAnimation setValues: @[@0.15, @1.11245, @0.951807, @1.036225, @0.975807, @1.0]];
-        [bounceAnimation setKeyTimes: @[@0, @0.285714, @0.464285, @0.642857, @0.821428, @1.0]];
-        [bounceAnimation setDuration: CLOUD_ANIMATION_DURATION];
-        [bounceAnimation setTimingFunctions: @[easeInOut, easeInOut, easeInOut, easeInOut]];
-        [bounceAnimation setBeginTime: CACurrentMediaTime()];
-        
-        CAShapeLayer *circle = [self.cloudFillLayers objectAtIndex: i];
-        [circle addAnimation: bounceAnimation forKey: animationKey];
     }
 }
 

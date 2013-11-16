@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Checkin2ViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CheckinViewController">
             <connections>
                 <outlet property="coworkerCell" destination="NY7-Sh-YiY" id="wPh-mg-URD"/>
                 <outlet property="coworkerListLabel" destination="z9a-3R-kW5" id="eGv-Ig-acv"/>

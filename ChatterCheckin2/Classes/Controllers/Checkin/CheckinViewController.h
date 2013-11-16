@@ -1,5 +1,5 @@
 //
-//  Checkin2ViewController.h
+//  CheckinViewController.h
 //  ChatterCheckin2
 //
 //  Created by Jason Barker on 11/4/13.
@@ -13,7 +13,7 @@
 
 
 
-@interface Checkin2ViewController : UIViewController <UIAlertViewDelegate, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate, SelectUserControllerDelegate, SFRestDelegate>
+@interface CheckinViewController : UIViewController <UIAlertViewDelegate, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate, SelectUserControllerDelegate, SFRestDelegate>
 
 @property (nonatomic, copy) NSString *location;
 

@@ -1,12 +1,12 @@
 //
-//  Checkin2ViewController.m
+//  CheckinViewController.m
 //  ChatterCheckin2
 //
 //  Created by Jason Barker on 11/4/13.
 //  Copyright (c) 2013 Salesforce.com. All rights reserved.
 //
 
-#import "Checkin2ViewController.h"
+#import "CheckinViewController.h"
 #import "CloudCalloutView.h"
 #import "LoadingViewController.h"
 #import "SelectUserViewControllerOrig.h"
@@ -27,7 +27,7 @@ static NSInteger     ERROR_ALERT_VIEW_TAG               = 111;
 
 
 
-@interface Checkin2ViewController ()
+@interface CheckinViewController ()
 
 @property (nonatomic, retain) NSArray *selectedUsers;
 @property (nonatomic, retain) NSAttributedString *listOfCoworkers;
@@ -36,7 +36,7 @@ static NSInteger     ERROR_ALERT_VIEW_TAG               = 111;
 
 
 
-@implementation Checkin2ViewController
+@implementation CheckinViewController
 
 
 /**

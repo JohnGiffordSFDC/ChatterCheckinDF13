@@ -7,7 +7,7 @@
 //
 
 #import "MapViewController.h"
-#import "Checkin2ViewController.h"
+#import "CheckinViewController.h"
 #import "SFAuthenticationManager.h"
 #import "AppDelegate.h"
 #import "Annotation.h"
@@ -207,7 +207,7 @@
     }
     
     
-    Checkin2ViewController *cvc = [[Checkin2ViewController alloc] initWithNibName: @"Checkin2ViewController" bundle: nil];
+    CheckinViewController *cvc = [[CheckinViewController alloc] initWithNibName: @"CheckinViewController" bundle: nil];
     [cvc setMapViewController: self];
     [cvc setLocation: locationStr];
     
