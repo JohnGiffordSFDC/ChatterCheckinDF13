@@ -30,6 +30,7 @@
 #import "SFLogger.h"
 #import "MapViewController.h"
 #import "FeedTableViewController.h"
+#import "AccountViewController.h"
 
 // Fill these in when creating a new Connected Application on Force.com
 static NSString * const RemoteAccessConsumerKey = @"3MVG9y6x0357HlefVK0jK_X_LSHwYYNZBJPCrx1WN1tB8AkC9s6nqv1MyW4QI7JpNqnTLz7N7qVfXCak6U3O_";
@@ -154,8 +155,16 @@ static NSString * const OAuthRedirectURI        = @"https://login.salesforce.com
     [nav2.tabBarItem setTitle: @"Check-in"];
     [nav2.navigationBar setBarStyle: UIBarStyleBlackOpaque];
     
+    AccountViewController *avc = [[AccountViewController alloc]initWithNibName:@"AccountViewController" bundle:nil];
+    
+    UINavigationController *nav3 = [[UINavigationController alloc] initWithRootViewController:avc];
+    
+    [nav3.tabBarItem setImage:[UIImage imageNamed:@"briefcase.png"]];
+    [nav3.tabBarItem setTitle:@"Accounts"];
+    [nav3.navigationBar setBarStyle:UIBarStyleBlackOpaque];
+    
     UITabBarController *utb = [[UITabBarController alloc] init];
-    [utb setViewControllers:[NSArray arrayWithObjects:nav2, nav1, nil]];
+    [utb setViewControllers:[NSArray arrayWithObjects:nav2, nav1, nav3, nil]];
 	
 	self.window.rootViewController = utb;
 }

@@ -35,6 +35,8 @@
 		4DBCCD7018286CAC006C7619 /* basic_blue_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCD6E18286CAC006C7619 /* basic_blue_background@2x.png */; };
 		4DBCCD7418286E6D006C7619 /* Checkin2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBCCD7218286E6D006C7619 /* Checkin2ViewController.m */; };
 		4DBCCD7518286E6D006C7619 /* Checkin2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCD7318286E6D006C7619 /* Checkin2ViewController.xib */; };
+		7B8EB6751836E5AF00023168 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8EB6721836E5AF00023168 /* AccountViewController.m */; };
+		7B8EB6761836E5AF00023168 /* AccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B8EB6741836E5AF00023168 /* AccountViewController.xib */; };
 		824A9DD91724E16400C9BD79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824A9DD81724E16400C9BD79 /* UIKit.framework */; };
 		824A9DDB1724E16400C9BD79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824A9DDA1724E16400C9BD79 /* Foundation.framework */; };
 		824A9DDD1724E16400C9BD79 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824A9DDC1724E16400C9BD79 /* CoreGraphics.framework */; };
@@ -131,6 +133,9 @@
 		4DBCCD7218286E6D006C7619 /* Checkin2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Checkin2ViewController.m; sourceTree = "<group>"; };
 		4DBCCD7318286E6D006C7619 /* Checkin2ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Checkin2ViewController.xib; sourceTree = "<group>"; };
 		4DBCCD7718299B5A006C7619 /* SelectUserControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectUserControllerDelegate.h; sourceTree = "<group>"; };
+		7B8EB6721836E5AF00023168 /* AccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountViewController.m; sourceTree = "<group>"; };
+		7B8EB6731836E5AF00023168 /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
+		7B8EB6741836E5AF00023168 /* AccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountViewController.xib; sourceTree = "<group>"; };
 		824A9DD51724E16400C9BD79 /* Checkin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Checkin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		824A9DD81724E16400C9BD79 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		824A9DDA1724E16400C9BD79 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -414,6 +419,16 @@
 				4DBCCD671824C7BD006C7619 /* ChatterPinAnnotationView.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		7B8EB6711836E59C00023168 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				7B8EB6721836E5AF00023168 /* AccountViewController.m */,
+				7B8EB6731836E5AF00023168 /* AccountViewController.h */,
+				7B8EB6741836E5AF00023168 /* AccountViewController.xib */,
+			);
+			name = Account;
 			sourceTree = "<group>";
 		};
 		824A9DCC1724E16400C9BD79 = {
@@ -850,6 +865,7 @@
 		B0838DF81822F16700AB0387 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7B8EB6711836E59C00023168 /* Account */,
 				B0838DF91822F16700AB0387 /* Checkin */,
 				B0838DFD1822F16700AB0387 /* Feed Table */,
 				B0838E041822F16700AB0387 /* Initial */,
@@ -1045,6 +1061,7 @@
 				B0838E1E1822F16700AB0387 /* FeedTableViewCell.xib in Resources */,
 				4DBCCD7518286E6D006C7619 /* Checkin2ViewController.xib in Resources */,
 				B0359D941826E95C00889929 /* SelectUserViewControllerOrig.xib in Resources */,
+				7B8EB6761836E5AF00023168 /* AccountViewController.xib in Resources */,
 				4D32CAF9182B585E00B73A14 /* tab_pin@2x.png in Resources */,
 				4D83E75218246B850022959B /* Icon-Small@2x.png in Resources */,
 				4D83E75818246BAD0022959B /* iTunesArtwork@2x in Resources */,
@@ -1088,6 +1105,7 @@
 				B0838E1F1822F16700AB0387 /* FeedTableViewController.m in Sources */,
 				824A9DE51724E16400C9BD79 /* main.m in Sources */,
 				4DBCCD681824C7BD006C7619 /* ChatterPinAnnotationView.m in Sources */,
+				7B8EB6751836E5AF00023168 /* AccountViewController.m in Sources */,
 				4DBCCD7418286E6D006C7619 /* Checkin2ViewController.m in Sources */,
 				B0838E1D1822F16700AB0387 /* FeedTableViewCell.m in Sources */,
 				B0359D931826E95C00889929 /* SelectUserViewControllerOrig.m in Sources */,
