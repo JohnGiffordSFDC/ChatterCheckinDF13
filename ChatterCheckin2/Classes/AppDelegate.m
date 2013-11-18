@@ -32,7 +32,7 @@
 #import "FeedTableViewController.h"
 
 // Fill these in when creating a new Connected Application on Force.com
-static NSString * const RemoteAccessConsumerKey = @"3MVG9y6x0357HlefVK0jK_X_LSHwYYNZBJPCrx1WN1tB8AkC9s6nqv1MyW4QI7JpNqnTLz7N7qVfXCak6U3O_";
+static NSString * const RemoteAccessConsumerKey = @"3MVG9y6x0357HlefVK0jK_X_LSOzSp91wrTUZGyvZidOdVt.gZZ40XNJhMZ.riSxkQoMrF9ejdohlBuJWEHmo";
 static NSString * const OAuthRedirectURI        = @"https://login.salesforce.com/services/oauth2/success";
 
 @interface AppDelegate ()

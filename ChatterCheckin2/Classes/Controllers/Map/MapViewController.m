@@ -97,24 +97,30 @@
 
 - (IBAction)performCoordinateGeocode:(id)sender
 {
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    
-    CLLocationCoordinate2D coord = _currentLocation;
-    
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:coord.latitude longitude:coord.longitude];
-    
-    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
-        NSLog(@"reverseGeocodeLocation:completionHandler: Completion Handler called!");
-        if (error){
-            NSLog(@"Geocode failed with error: %@", error);
-            [self displayError:error];
-            return;
-        }
-        NSLog(@"Received placemarks: %@", placemarks);
+    if (!_geocoding) {
         
-        [self displayCheckin:placemarks];
-
-    }];
+        _geocoding = YES;
+        
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    
+        CLLocationCoordinate2D coord = _currentLocation;
+    
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:coord.latitude longitude:coord.longitude];
+    
+        [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+            NSLog(@"reverseGeocodeLocation:completionHandler: Completion Handler called!");
+            if (error){
+                NSLog(@"Geocode failed with error: %@", error);
+                [self displayError:error];
+                return;
+            }
+            NSLog(@"Received placemarks: %@", placemarks);
+            
+            _geocoding = NO;
+            
+            [self displayCheckin:placemarks];
+        }];
+    }
 }
 
 - (void) showCheckinWithTitle: (NSAttributedString *) title {
@@ -196,6 +202,7 @@
 
 - (void)displayCheckin:(NSArray *)placemarks
 {
+    
     NSString *locationStr = nil;
     if ([placemarks count] > 0) {
         CLPlacemark *placemark = (CLPlacemark *)[placemarks objectAtIndex:0];
@@ -206,12 +213,16 @@
         locationStr = @"Location Not Found";
     }
     
-    
-    CheckinViewController *cvc = [[CheckinViewController alloc] initWithNibName: @"CheckinViewController" bundle: nil];
-    [cvc setMapViewController: self];
-    [cvc setLocation: locationStr];
-    
-    [self.navigationController pushViewController:cvc animated:YES];
+    if (!_geocoding) {
+        if (_cvc == nil) {
+            _cvc = [[CheckinViewController alloc] initWithNibName: @"CheckinViewController" bundle: nil];
+        }
+        [_cvc setMapViewController: self];
+        [_cvc setLocation: locationStr];
+        
+        
+        [self.navigationController pushViewController:_cvc animated:YES];
+    }
 }
 
 - (void)logout {

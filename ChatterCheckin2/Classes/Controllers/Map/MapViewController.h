@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 Model Metrics. All rights reserved.
 //
 
+@class CheckinViewController;
+
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "SFRestAPI.h"
@@ -21,6 +23,8 @@
     NSDate *_startTime;
     NSDate *_endTime;
     int _counter;
+    bool _geocoding;
+    CheckinViewController *_cvc;
 }
 
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
