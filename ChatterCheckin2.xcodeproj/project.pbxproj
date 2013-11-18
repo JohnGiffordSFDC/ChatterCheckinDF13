@@ -35,6 +35,8 @@
 		4DBCCD7018286CAC006C7619 /* basic_blue_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCD6E18286CAC006C7619 /* basic_blue_background@2x.png */; };
 		4DBCCD7418286E6D006C7619 /* Checkin2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBCCD7218286E6D006C7619 /* Checkin2ViewController.m */; };
 		4DBCCD7518286E6D006C7619 /* Checkin2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DBCCD7318286E6D006C7619 /* Checkin2ViewController.xib */; };
+		7B3D289D183AB53C00D2D6EC /* briefcase.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B3D289B183AB53C00D2D6EC /* briefcase.png */; };
+		7B3D289E183AB53C00D2D6EC /* briefcase@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B3D289C183AB53C00D2D6EC /* briefcase@2x.png */; };
 		7B8EB6751836E5AF00023168 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8EB6721836E5AF00023168 /* AccountViewController.m */; };
 		7B8EB6761836E5AF00023168 /* AccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B8EB6741836E5AF00023168 /* AccountViewController.xib */; };
 		824A9DD91724E16400C9BD79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824A9DD81724E16400C9BD79 /* UIKit.framework */; };
@@ -133,6 +135,8 @@
 		4DBCCD7218286E6D006C7619 /* Checkin2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Checkin2ViewController.m; sourceTree = "<group>"; };
 		4DBCCD7318286E6D006C7619 /* Checkin2ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Checkin2ViewController.xib; sourceTree = "<group>"; };
 		4DBCCD7718299B5A006C7619 /* SelectUserControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectUserControllerDelegate.h; sourceTree = "<group>"; };
+		7B3D289B183AB53C00D2D6EC /* briefcase.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = briefcase.png; sourceTree = "<group>"; };
+		7B3D289C183AB53C00D2D6EC /* briefcase@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "briefcase@2x.png"; sourceTree = "<group>"; };
 		7B8EB6721836E5AF00023168 /* AccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountViewController.m; sourceTree = "<group>"; };
 		7B8EB6731836E5AF00023168 /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
 		7B8EB6741836E5AF00023168 /* AccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountViewController.xib; sourceTree = "<group>"; };
@@ -957,6 +961,8 @@
 		B0838E2C1822F4B700AB0387 /* Other Assets */ = {
 			isa = PBXGroup;
 			children = (
+				7B3D289B183AB53C00D2D6EC /* briefcase.png */,
+				7B3D289C183AB53C00D2D6EC /* briefcase@2x.png */,
 				B0838E2D1822F4B700AB0387 /* checkin.png */,
 				B0838E2E1822F4B700AB0387 /* checkin@2x.png */,
 				B0838E2F1822F4B700AB0387 /* feed_icon.png */,
@@ -1039,6 +1045,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B3D289D183AB53C00D2D6EC /* briefcase.png in Resources */,
 				4D83E75318246B850022959B /* Icon.png in Resources */,
 				824A9DE31724E16400C9BD79 /* InfoPlist.strings in Resources */,
 				4DBCCD7018286CAC006C7619 /* basic_blue_background@2x.png in Resources */,
@@ -1059,6 +1066,7 @@
 				4D32CB00182B5D9F00B73A14 /* tab_wordBubble.png in Resources */,
 				824A9E411724ECC600C9BD79 /* SalesforceSDKResources.bundle in Resources */,
 				B0838E1E1822F16700AB0387 /* FeedTableViewCell.xib in Resources */,
+				7B3D289E183AB53C00D2D6EC /* briefcase@2x.png in Resources */,
 				4DBCCD7518286E6D006C7619 /* Checkin2ViewController.xib in Resources */,
 				B0359D941826E95C00889929 /* SelectUserViewControllerOrig.xib in Resources */,
 				7B8EB6761836E5AF00023168 /* AccountViewController.xib in Resources */,
